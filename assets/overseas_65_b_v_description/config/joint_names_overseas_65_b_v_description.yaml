@@ -1,0 +1,1 @@
+controller_joint_names: ['', 'joint_right_wheel', 'jiont_left_wheel', 'joint_swivel_wheel_1_1', 'joint_swivel_wheel_1_2', 'joint_swivel_wheel_2_1', 'joint_swivel_wheel_2_2', 'joint_swivel_wheel_3_1', 'joint_swivel_wheel_3_2', 'joint_swivel_wheel_4_1', 'joint_swivel_wheel_4_2', ]

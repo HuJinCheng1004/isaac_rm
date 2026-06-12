@@ -1,0 +1,35 @@
+# === 运行产物 / 训练输出（不进版本控制）===
+logs/
+outputs/
+wandb/
+
+# === Docker 镜像包（8G，绝对不能传）===
+docker/*.tar
+docker/*.tar.gz
+
+# === Python ===
+__pycache__/
+*.py[cod]
+*.so
+*.egg-info/
+.eggs/
+build/
+dist/
+.ipynb_checkpoints/
+
+# === 虚拟环境 ===
+.venv/
+venv/
+env/
+
+# === 模型权重 / checkpoint（按需放开）===
+*.pt
+*.pth
+*.ckpt
+*.onnx
+
+# === 编辑器 / 系统 ===
+.vscode/
+.idea/
+.DS_Store
+*.swp

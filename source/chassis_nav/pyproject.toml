@@ -1,0 +1,18 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "chassis_nav"
+version = "0.1.0"
+description = "Render-free, bbox-feature-based differential-drive chassis approach/align navigation RL task for Isaac Lab 3.0 (skrl PPO)."
+readme = "README.md"
+requires-python = ">=3.10"
+# NOTE: isaaclab / isaacsim / skrl are provided by the Isaac Lab environment
+# (installed via `./isaaclab.sh --install skrl`). They are intentionally NOT
+# listed here so that `pip install -e .` does not try to pull them from PyPI.
+dependencies = []
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["chassis_nav*"]

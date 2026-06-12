@@ -1,0 +1,44 @@
+一、 环境定义：状态空间与动作空间设计
+为了让模型轻量且极易收敛，我们不输入图像，只输入抽象特征。
+1. 状态空间 (Observation Space $$s_t$$)
+由于你的真实系统依赖 GroundingDINO + SAM2 输出 BBox，仿真环境只需计算目标物体相对于相机视角的“理想 BBox”，并加入噪声即可。推荐的状态向量维度（约 8-10 维）：
+- 目标 BBox 几何特征 (4维)：
+  - 中心点坐标偏差：$c_x, c_y \in [-1, 1]$（归一化处理，0代表画面正中心）。
+  - 目标面积占比：$A_{ratio} \in [0, 1]$（当前 BBox 面积 / 图像总面积）。
+  - 宽高比：$w/h$（帮助网络感知物体姿态变化）。
+- 本体感受感知 (Proprioception, 2维)：
+  - 底盘当前线速度 $v$ 和角速度 $\omega$（用于平滑控制）。
+- 动作历史 (Action History, 2-4维)：
+  - 上一帧或前两帧的动作输出 $a_{t-1}, a_{t-2}$（极大地减少底盘的“抽搐”现象）。
+2. 动作空间 (Action Space $$a_t$$)
+如果你使用连续控制算法（强烈推荐 PPO），动作空间为二维的连续输出：
+- 线速度：$$v_{cmd} \in [-1, 1]$$（输出后映射到底盘的真实物理极限，例如 -0.2 m/s 到 0.5 m/s）。
+- 角速度：$$\omega_{cmd} \in [-1, 1]$$（映射到例如 -1.0 rad/s 到 1.0 rad/s）。
+二、 核心灵魂：奖励函数 (Reward Function) 的工程设计
+RL 能不能 work，全看 Reward 怎么写。你的目标是“靠近并对准，但不撞上”。建议采用以下塑形奖励（Shaping Rewards）：
+$$R_t = w_1 R_{center} + w_2 R_{approach} + w_3 R_{smooth} + w_4 R_{terminal}$$
+1. 对准奖励 (Centering Reward)：鼓励底盘将目标保持在视野中央。
+2. $$R_{center} = \exp(-k \sqrt{c_x^2 + c_y^2})$$
+3. (如果目标偏离中心太远，甚至丢失视野，给予较大的惩罚)。
+4. 靠近奖励 (Approaching Reward)：鼓励底盘不断增大 BBox 的面积，直到达到可操作的理想面积 $$A_{target}$$。
+5. $$R_{approach} = -|A_{ratio} - A_{target}|$$
+6. 平滑度惩罚 (Smoothness Penalty)：防止底盘疯狂左右摇摆。
+7. $$R_{smooth} = -\|a_t - a_{t-1}\|^2$$
+8. 终止奖励 (Terminal Reward)：
+  - Success：当 $A_{ratio}$ 接近 $A_{target}$ 且 $(c_x, c_y)$ 接近 0，并保持若干帧时，给予巨大奖励（如 +100）并结束回合（Reset）。
+  - Collision/Lost：如果撞到物体，或者目标完全掉出视野 ($c_x, c_y$ 越界)，给予惩罚（如 -50）并结束回合。
+三、 Sim-to-Real 护城河：域随机化 (Domain Randomization)
+在 Isaac Lab 中，你不需要渲染相机（这让你可以开启 4096 个并行环境瞬间训练完）。你只需要通过坐标变换算出 BBox。但是，真实的 SAM2 视觉管线是有延迟和误差的，必须在训练中加入以下随机化：
+- BBox 噪声 (Observation Noise)：给计算出的 $$(c_x, c_y, A_{ratio})$$ 加入高斯噪声。模拟真实世界中 DINO 检测框的跳动。
+- 随机遮挡与丢失 (False Negatives)：以 5% 的概率将状态空间中的 BBox 全置为 0，模拟视觉大模型在某几帧突然漏检。模型需要学会在丢失一两帧时靠惯性保持运动，而不是急刹车。
+- 控制延迟 (Latency Injection)：视觉大模型处理需要时间（假设 10Hz，即 100ms 延迟）。在仿真中，强制让 Agent 获取到的观测值是 $$t-1$$ 甚至 $$t-2$$ 时刻的“旧观测”，逼迫网络学会在延迟下稳定输出。
+- 物理参数随机化 (Physics DR)：底盘的质量、轮子摩擦系数、电机的最大扭矩，在每次 Reset 时随机浮动 ±20%。
+四、 训练架构与超参数建议
+1. 算法与网络：
+  - 使用 PPO (Proximal Policy Optimization)。
+  - 由于状态空间只有不到 10 维，网络极其简单：MLP [256, 128, 64] 配合 ELU 或 SiLU 激活函数即可。千万不要加 CNN。
+2. 并行环境 (Vectorized Environments)：
+  - 在 Isaac Lab 中，设置 num_envs = 2048 甚至 4096。
+  - 因为没有物理相机的光线追踪渲染，单张 RTX 4090 可能在 1-2 小时内就能让策略完全收敛。
+3. 开发工具链：
+  - 推荐使用 skrl 或 rl_games 作为 PPO 后端，它们与 Isaac Lab（基于 Omniverse）有极好的 GPU 张量级整合，数据直接在 VRAM 中流转，不需要 copy 回 CPU。
