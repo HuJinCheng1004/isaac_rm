@@ -1,8 +1,3 @@
-# === 运行产物 / 训练输出（不进版本控制）===
-logs/
-outputs/
-wandb/
-
 # === Docker 镜像包（8G，绝对不能传）===
 docker/*.tar
 docker/*.tar.gz
@@ -21,12 +16,6 @@ dist/
 .venv/
 venv/
 env/
-
-# === 模型权重 / checkpoint（按需放开）===
-*.pt
-*.pth
-*.ckpt
-*.onnx
 
 # === 编辑器 / 系统 ===
 .vscode/

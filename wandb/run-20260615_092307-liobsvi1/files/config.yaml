@@ -1,0 +1,163 @@
+_wandb:
+    value:
+        cli_version: 0.27.0
+        e:
+            2clcm590xg08m16nql9f71owbyrxajaz:
+                codePath: scripts/play.py
+                codePathLocal: scripts/play.py
+                cpu_count: 16
+                cpu_count_logical: 32
+                cudaVersion: "13.0"
+                disk:
+                    /:
+                        total: "2001438932992"
+                        used: "758259183616"
+                email: lishih0621@gmail.com
+                executable: /home/shihao/pistar/.venv/bin/python
+                git:
+                    commit: 922499932c59473b514147760c731e5ffd8798b9
+                    remote: git@github.com:HuJinCheng1004/isaac_rm.git
+                gpu: NVIDIA RTX A6000
+                gpu_count: 1
+                gpu_nvidia:
+                    - architecture: Ampere
+                      cudaCores: 10752
+                      memoryTotal: "51527024640"
+                      name: NVIDIA RTX A6000
+                      uuid: GPU-e86de1be-b97d-b11f-479b-2bf7dcc01cd2
+                host: dell-Precision-7960-Tower2
+                memory:
+                    total: "134266122240"
+                os: Linux-6.8.0-124-generic-x86_64-with-glibc2.35
+                program: /home/shihao/isaac_rm/scripts/play.py
+                python: CPython 3.11.9
+                root: /home/shihao/isaac_rm
+                startedAt: "2026-06-15T07:23:07.634262Z"
+                writerId: 2clcm590xg08m16nql9f71owbyrxajaz
+        m: []
+        python_version: 3.11.9
+        t:
+            "1":
+                - 1
+                - 2
+                - 3
+                - 12
+                - 50
+            "2":
+                - 1
+                - 2
+                - 3
+                - 12
+                - 50
+            "3":
+                - 13
+                - 16
+                - 35
+            "4": 3.11.9
+            "5": 0.27.0
+            "12": 0.27.0
+            "13": linux-x86_64
+class:
+    value: PPO
+clip_predicted_values:
+    value: true
+close_environment_at_exit:
+    value: false
+disable_progressbar:
+    value: false
+discount_factor:
+    value: 0.99
+entropy_loss_scale:
+    value: 0.005
+environment_info:
+    value: log
+experiment:
+    value:
+        checkpoint_interval: 0
+        directory: chassis_approach
+        experiment_name: ""
+        wandb: true
+        wandb_kwargs:
+            project: isaac_rm
+        write_interval: 0
+grad_norm_clip:
+    value: 1
+headless:
+    value: false
+kl_threshold:
+    value: 0
+lambda:
+    value: 0.95
+learning_epochs:
+    value: 5
+learning_rate:
+    value: 0.001
+learning_rate_scheduler:
+    value: skrl.resources.schedulers.torch.kl_adaptive.KLAdaptiveLR
+learning_rate_scheduler_kwargs:
+    value:
+        kl_threshold: 0.01
+learning_starts:
+    value: 0
+mini_batches:
+    value: 4
+mixed_precision:
+    value: false
+policy:
+    value:
+        net_container: |-
+            Sequential(
+              (0): Linear(in_features=16, out_features=256, bias=True)
+              (1): ELU(alpha=1.0)
+              (2): Linear(in_features=256, out_features=128, bias=True)
+              (3): ELU(alpha=1.0)
+              (4): Linear(in_features=128, out_features=64, bias=True)
+              (5): ELU(alpha=1.0)
+            )
+        policy_layer: Linear(in_features=64, out_features=3, bias=True)
+        value_layer: Linear(in_features=64, out_features=1, bias=True)
+random_timesteps:
+    value: 0
+ratio_clip:
+    value: 0.2
+rewards_shaper:
+    value: skrl.utils.runner.torch.runner.Runner._process_cfg.<locals>.reward_shaper_function.<locals>.reward_shaper
+rewards_shaper_scale:
+    value: 1
+rollouts:
+    value: 24
+state_preprocessor:
+    value: skrl.resources.preprocessors.torch.running_standard_scaler.RunningStandardScaler
+state_preprocessor_kwargs:
+    value:
+        device: cuda:0
+        size: Box(-inf, inf, (16,), float32)
+stochastic_evaluation:
+    value: false
+time_limit_bootstrap:
+    value: true
+timesteps:
+    value: 24000
+value:
+    value:
+        net_container: |-
+            Sequential(
+              (0): Linear(in_features=16, out_features=256, bias=True)
+              (1): ELU(alpha=1.0)
+              (2): Linear(in_features=256, out_features=128, bias=True)
+              (3): ELU(alpha=1.0)
+              (4): Linear(in_features=128, out_features=64, bias=True)
+              (5): ELU(alpha=1.0)
+            )
+        policy_layer: Linear(in_features=64, out_features=3, bias=True)
+        value_layer: Linear(in_features=64, out_features=1, bias=True)
+value_clip:
+    value: 0.2
+value_loss_scale:
+    value: 1
+value_preprocessor:
+    value: skrl.resources.preprocessors.torch.running_standard_scaler.RunningStandardScaler
+value_preprocessor_kwargs:
+    value:
+        device: cuda:0
+        size: 1

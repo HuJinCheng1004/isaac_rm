@@ -1,0 +1,40 @@
+{
+  "os": "Linux-6.8.0-124-generic-x86_64-with-glibc2.35",
+  "python": "CPython 3.11.9",
+  "startedAt": "2026-06-15T03:20:24.289552Z",
+  "program": "/home/shihao/isaac_rm/scripts/play.py",
+  "codePath": "scripts/play.py",
+  "codePathLocal": "scripts/play.py",
+  "git": {
+    "remote": "git@github.com:HuJinCheng1004/isaac_rm.git",
+    "commit": "922499932c59473b514147760c731e5ffd8798b9"
+  },
+  "email": "lishih0621@gmail.com",
+  "root": "/home/shihao/isaac_rm",
+  "host": "dell-Precision-7960-Tower2",
+  "executable": "/home/shihao/pistar/.venv/bin/python",
+  "cpu_count": 16,
+  "cpu_count_logical": 32,
+  "gpu": "NVIDIA RTX A6000",
+  "gpu_count": 1,
+  "disk": {
+    "/": {
+      "total": "2001438932992",
+      "used": "756250603520"
+    }
+  },
+  "memory": {
+    "total": "134266122240"
+  },
+  "gpu_nvidia": [
+    {
+      "name": "NVIDIA RTX A6000",
+      "memoryTotal": "51527024640",
+      "cudaCores": 10752,
+      "architecture": "Ampere",
+      "uuid": "GPU-e86de1be-b97d-b11f-479b-2bf7dcc01cd2"
+    }
+  ],
+  "cudaVersion": "13.0",
+  "writerId": "v61hks38e9rhde1u7ceon8gfz4nw4kpe"
+}

@@ -1,0 +1,17 @@
+{"time":"2026-06-15T09:25:01.209483076+02:00","level":"INFO","msg":"wandb-core"}
+{"time":"2026-06-15T09:25:01.209722779+02:00","level":"INFO","msg":"stream: starting","core version":"0.27.0"}
+{"time":"2026-06-15T09:25:01.442957784+02:00","level":"INFO","msg":"api: retrying error","error":"Post \"https://api.wandb.ai/graphql\": EOF"}
+{"time":"2026-06-15T09:25:04.352499148+02:00","level":"INFO","msg":"stream: created new stream","id":"ffccc5fq"}
+{"time":"2026-06-15T09:25:04.35262157+02:00","level":"INFO","msg":"handler: started"}
+{"time":"2026-06-15T09:25:04.352764856+02:00","level":"INFO","msg":"stream: started"}
+{"time":"2026-06-15T09:25:04.352814054+02:00","level":"INFO","msg":"sender: started"}
+{"time":"2026-06-15T09:25:04.352813902+02:00","level":"INFO","msg":"writer: started","stream_id":"ffccc5fq"}
+{"time":"2026-06-15T09:25:05.163682498+02:00","level":"INFO","msg":"filestream: sending request","total_files":1,"console_offset":0,"console_lines":1}
+{"time":"2026-06-15T09:25:05.885074196+02:00","level":"INFO","msg":"filestream: request sent","status":"200 OK"}
+{"time":"2026-06-15T09:25:07.032024125+02:00","level":"INFO","msg":"fileTransfer: Close: file transfer manager closed"}
+{"time":"2026-06-15T09:25:07.032310235+02:00","level":"INFO","msg":"filestream: sending request","total_files":2,"console_offset":1,"console_lines":14,"uploaded_len":5,"complete":true,"exit_code":1}
+{"time":"2026-06-15T09:25:07.403896773+02:00","level":"INFO","msg":"filestream: request sent","status":"200 OK"}
+{"time":"2026-06-15T09:25:07.404099736+02:00","level":"INFO","msg":"stream: finishing up"}
+{"time":"2026-06-15T09:25:07.404121975+02:00","level":"INFO","msg":"handler: closed"}
+{"time":"2026-06-15T09:25:07.404210408+02:00","level":"INFO","msg":"sender: closed"}
+{"time":"2026-06-15T09:25:07.40421844+02:00","level":"INFO","msg":"stream: all finished"}
