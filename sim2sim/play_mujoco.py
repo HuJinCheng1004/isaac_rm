@@ -32,9 +32,9 @@ import torch
 HERE = os.path.dirname(os.path.abspath(__file__))
 REPO = os.path.dirname(HERE)
 SCENE = os.path.join(HERE, "chassis_scene.xml")
-CKPT = os.path.join(
+DEFAULT_CKPT = os.path.join(
     REPO, "logs", "skrl", "chassis_approach",
-    "2026-06-12_20-16-11_ppo_torch", "checkpoints", "best_agent.pt",
+    "2026-06-15_17-49-01_ppo_torch", "checkpoints", "best_agent.pt",
 )
 
 # --------------------------------------------------------------------------- #
@@ -78,6 +78,9 @@ FWD_AXIS = np.array([_CP, 0.0, -_SP])         # camera_link 局部：前(下压2
 RIGHT_AXIS = np.array([0.0, -1.0, 0.0])       # 右
 UP_AXIS = np.array([_SP, 0.0, _CP])           # 上
 TARGET_SIZE = np.array([0.25, 0.25, 0.40])    # 目标方块完整尺寸（与 MJCF 一致）
+HALF = 0.5 * TARGET_SIZE
+_CORNER_SIGNS = np.array([[sx, sy, sz] for sx in (-1, 1) for sy in (-1, 1) for sz in (-1, 1)],
+                         dtype=float)
 
 # 成功/碰撞/丢失（镜像 TerminationsCfg）
 D_TARGET = 0.4
@@ -119,7 +122,7 @@ class Policy:
         self.mean = sp["running_mean"].numpy()
         self.std = np.sqrt(sp["running_variance"].numpy() + 1e-8)
         self.clip = clip_threshold
-        assert self.W[0].shape[1] == 13, f"obs dim mismatch: {self.W[0].shape}"
+        assert self.W[0].shape[1] == 18, f"obs dim mismatch: {self.W[0].shape}"
 
     def act(self, obs: np.ndarray) -> np.ndarray:
         x = (obs - self.mean) / self.std
@@ -132,6 +135,12 @@ class Policy:
 # --------------------------------------------------------------------------- #
 # 几何小工具
 # --------------------------------------------------------------------------- #
+def quat_to_mat(q: np.ndarray) -> np.ndarray:
+    m = np.zeros(9)
+    mujoco.mju_quat2Mat(m, q)
+    return m.reshape(3, 3)
+
+
 def yaw_to_quat(yaw: float) -> np.ndarray:
     return np.array([np.cos(0.5 * yaw), 0.0, 0.0, np.sin(0.5 * yaw)])
 
@@ -174,13 +183,15 @@ class Sim:
 
     # -- 观测 ------------------------------------------------------------- #
     def _bbox_clean(self):
-        """解析目标 3D 框观测（4 维 [x,y,z,distance]，相机系；不可见则置零）。
+        """解析目标 3D 框观测（9 维，相机系；不可见则置零）。
 
-        镜像训练配置（env.yaml）：bbox 仅为中心坐标 + 距离，不含边长。
+        镜像重训配置（env.yaml）：[x, y, z, distance, sx, sy, sz, u_ndc, v_ndc]
+        —— 3D 中心 + 距离 + 沿相机轴的框边长 + 图像归一化中心。
         """
         cam_pos = self.d.site(self.cam_sid).xpos.copy()
         R_cam = self.d.site(self.cam_sid).xmat.reshape(3, 3).copy()
         tgt_pos = self.d.mocap_pos[0].copy()
+        tgt_quat = self.d.mocap_quat[0].copy()
 
         c_cam = R_cam.T @ (tgt_pos - cam_pos)        # 目标中心于相机局部系
         fwd = float(c_cam @ FWD_AXIS)
@@ -193,8 +204,18 @@ class Sim:
         v_ndc = (up / fwd_safe) / TAN_V
         visible = (fwd > EPS) and (abs(u_ndc) <= 1.0) and (abs(v_ndc) <= 1.0)
 
-        obs4 = np.array([x, y, z, distance]) if visible else np.zeros(4)
-        return obs4, u_ndc, v_ndc, distance, visible
+        # 8 角 -> 相机轴 AABB 边长
+        R_t = quat_to_mat(tgt_quat)
+        corners_w = (R_t @ (_CORNER_SIGNS * HALF).T).T + tgt_pos      # (8,3)
+        pc = (corners_w - cam_pos) @ R_cam                            # 相机局部 (8,3)
+        rc = pc @ RIGHT_AXIS
+        uc = pc @ UP_AXIS
+        fc = pc @ FWD_AXIS
+        size = [rc.max() - rc.min(), uc.max() - uc.min(), fc.max() - fc.min()]
+
+        obs9 = (np.array([x, y, z, distance, *size, u_ndc, v_ndc])
+                if visible else np.zeros(9))
+        return obs9, u_ndc, v_ndc, distance, visible
 
     def observe(self):
         bbox, u, v, dist, vis = self._bbox_clean()
@@ -313,12 +334,12 @@ class Sim:
                                                     "lost" if lost else "")
 
 
-def run(headless: bool, episodes: int, seed: int, fast: bool):
+def run(headless: bool, episodes: int, seed: int, fast: bool, ckpt: str):
     rng = np.random.default_rng(seed)
     sim = Sim(rng)
-    policy = Policy(CKPT)
+    policy = Policy(ckpt)
     print(f"[play] scene={SCENE}")
-    print(f"[play] ckpt ={CKPT}")
+    print(f"[play] ckpt ={ckpt}")
 
     def run_episode(viewer=None):
         sim.reset()
@@ -364,7 +385,8 @@ if __name__ == "__main__":
     ap.add_argument("--episodes", type=int, default=0, help="回合数（viewer 下 0=无限）")
     ap.add_argument("--seed", type=int, default=0)
     ap.add_argument("--fast", action="store_true", help="viewer 下全速回放（默认 10Hz 实时）")
+    ap.add_argument("--ckpt", type=str, default=DEFAULT_CKPT, help="策略 checkpoint 路径")
     args = ap.parse_args()
     if args.headless and args.episodes <= 0:
         args.episodes = 5
-    run(args.headless, args.episodes, args.seed, args.fast)
+    run(args.headless, args.episodes, args.seed, args.fast, args.ckpt)

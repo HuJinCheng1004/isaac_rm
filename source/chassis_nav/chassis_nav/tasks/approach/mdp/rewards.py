@@ -3,17 +3,17 @@
 
 """底盘靠近/对齐任务的奖励项。
 
-所有塑形奖励读取*干净的*地真边界框（不是噪声/
-延迟的策略观察），并由目标可见性门控，因此瞬间
-假阴性检测永远不会错误地奖励"丢失"行为。
+所有塑形奖励读取*干净的*地真边界框（不是噪声/延迟的策略观察）。密集奖励
+**不再**按目标可见性门控——丢失视野由终止项判为失败（立即结束情节），因此
+不需要靠"密集奖励归零"来抑制丢失行为。
 
     R = w1 * R_center + w2 * R_approach + w3 * R_smooth + R_terminal
 
-* ``centering``       : exp(-k * sqrt(u_ndc^2 + v_ndc^2))     （保持目标居中）
-* ``approach``        : -|distance - d_target|                （达到可操作距离 [m]）
-* smoothness          : 使用内置 ``mdp.action_rate_l2`` (-||a_t - a_{t-1}||^2)
-* ``success_reward``  : +1 指示器 -> 通过权重缩放到 ~ +100
-* ``failure_penalty`` : +1 指示器 -> 通过权重缩放到 ~ -50
+* ``centering``         : exp(-k * sqrt(u_ndc^2 + v_ndc^2))   （保持目标居中）
+* ``approach``          : 越靠近 d_target 奖励越高；近于 d_target 则转为惩罚
+* ``smoothness_penalty``: 惩罚底盘(v,w)与升降杆速度指令的逐步变化（≈加速度）
+* ``success_reward``    : +1 指示器 -> 通过权重缩放到 ~ +100
+* ``failure_penalty``   : +1 指示器 -> 通过权重缩放到 ~ -50
 
 注意：奖励管理器将每个项乘以 ``weight * dt``。对于 10 Hz
 控制速率（dt = 0.1 s），终端权重因此除以 dt
@@ -33,24 +33,51 @@ if TYPE_CHECKING:
 
 
 def centering(env: "ManagerBasedRLEnv", k: float = 2.0) -> torch.Tensor:
-    """exp(-k * 径向投影偏移），当目标不可见时为零。
+    """exp(-k * 径向投影偏移）。不再按可见性门控。
 
     径向偏移由 3D 中心投影到图像的 ``(u_ndc, v_ndc)`` 计算，与原 2D 居中等价
     （u/v_ndc 即归一化方位角），驱动底盘偏航对正水平、升降杆对正纵向。
     """
     s = get_bbox3d_state(env)
     radial = torch.sqrt(s.u_ndc ** 2 + s.v_ndc ** 2)
-    return torch.exp(-k * radial) * s.visible.float()
+    return torch.exp(-k * radial)
 
 
-def approach(env: "ManagerBasedRLEnv", d_target: float = 0.8) -> torch.Tensor:
-    """-|distance - d_target|，当目标不可见时为零。
+def approach(env: "ManagerBasedRLEnv", d_target: float = 0.4, near_penalty: float = 4.0) -> torch.Tensor:
+    """靠近塑形：越接近 ``d_target`` 奖励越高；一旦近于 ``d_target`` 则转为惩罚。
 
     ``distance`` 是目标 3D 中心到相机原点的米制距离（run_realtime 的
-    ``Box3D.distance``），驱动底盘把目标靠近到可操作距离 ``d_target`` [m]。
+    ``Box3D.distance``）。
+
+    * ``distance >= d_target``：奖励 = ``-(distance - d_target)``，随接近 ``d_target``
+      单调升高（趋于 0），驱动底盘靠近目标。
+    * ``distance <  d_target``：奖励 = ``-near_penalty * (d_target - distance)``，越靠近
+      负惩罚越深，防止底盘撞上目标——替代已移除的硬碰撞终止。
+
+    在 ``d_target`` 处连续（两段均为 0）。不再按可见性门控。
     """
     s = get_bbox3d_state(env)
-    return -(s.distance - d_target).abs() * s.visible.float()
+    over = s.distance - d_target
+    far = -over.clamp(min=0.0)              # 远端：越近越高（<=0，趋于 0）
+    near = (-over).clamp(min=0.0)           # 近端：d_target - distance（>=0）
+    return far - near_penalty * near
+
+
+def smoothness_penalty(
+    env: "ManagerBasedRLEnv",
+    base_weight: float = 1.0,
+    lift_weight: float = 1.0,
+) -> torch.Tensor:
+    """惩罚底盘(前向/偏航)与升降杆速度指令的逐步变化（≈加速度），抑制急加减速/抖动。
+
+    三维动作均为*速度*指令 ``(v, w, lift_vel)``，相邻控制步的差分即对应的加速度。
+    底盘两维 ``(v, w)`` 与升降杆维各自可调权重，便于分别约束底盘和升降杆的加速度。
+    返回非负的加权平方和（在配置中以负权重使用）。
+    """
+    diff = env.action_manager.action - env.action_manager.prev_action
+    base = torch.sum(torch.square(diff[:, 0:2]), dim=-1)   # v, w 加速度
+    lift = torch.square(diff[:, 2])                        # 升降杆加速度
+    return base_weight * base + lift_weight * lift
 
 
 def success_reward(env: "ManagerBasedRLEnv") -> torch.Tensor:
@@ -62,7 +89,7 @@ def success_reward(env: "ManagerBasedRLEnv") -> torch.Tensor:
 
 
 def failure_penalty(env: "ManagerBasedRLEnv") -> torch.Tensor:
-    """+1 在发生碰撞或丢失目标失败的步骤上（使用负权重）。"""
+    """+1 在丢失目标（视野丢失）失败的步骤上（使用负权重）。"""
     flag = getattr(env, "_chassis_failure", None)
     if flag is None:
         return torch.zeros(env.num_envs, device=env.device)
