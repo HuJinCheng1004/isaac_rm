@@ -336,3 +336,5 @@ class ChassisApproachEnvCfg_PLAY(ChassisApproachEnvCfg):
         self.scene.num_envs = 16
         self.scene.env_spacing = 6.0
         # keep corruption on so playback reflects the real (noisy/delayed) pipeline
+        # 与训练 checkpoint 保持一致：history_length=1 → last_actions (3,)，obs 共 13 维
+        self.observations.policy.last_actions.history_length = 1

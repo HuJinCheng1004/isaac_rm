@@ -74,9 +74,10 @@ OMNI_KIT_ACCEPT_EULA=YES $PY scripts/train.py \
     --task Isaac-Chassis-Approach-v0 --num_envs 4096 --headless
 
 # 回放（带界面，加载 checkpoint）
-OMNI_KIT_ACCEPT_EULA=YES $PY scripts/play.py \
-    --task Isaac-Chassis-Approach-Play-v0 --num_envs 16 \
-    --checkpoint /abs/path/to/logs/skrl/chassis_approach/<run>/checkpoints/best_agent.pt
+OMNI_KIT_ACCEPT_EULA=YES /home/shihao/pistar/.venv/bin/python scripts/play.py \
+  --task Isaac-Chassis-Approach-Play-v0 --num_envs 16 \
+  --checkpoint /home/shihao/isaac_rm/logs/skrl/chassis_approach/2026-06-12_20-16-11_ppo_torch/checkpoints/best_agent.pt \
+  --enable_cameras
 
 OMNI_KIT_ACCEPT_EULA=YES $PY scripts/play.py \
     --task Isaac-Chassis-Approach-Play-v0 --num_envs 16 \

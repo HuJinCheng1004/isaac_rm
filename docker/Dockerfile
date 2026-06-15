@@ -1,3 +1,4 @@
+# syntax=docker/dockerfile:1
 # ============================================================
 # Isaac RM 训练镜像
 # 思路：不在容器里重装 Isaac Sim，而是把本机【已验证可用】的 uv venv
@@ -29,7 +30,10 @@ ENV NVIDIA_VISIBLE_DEVICES=all
 ENV NVIDIA_DRIVER_CAPABILITIES=all
 
 # 一次性把组装好的目录树搬到镜像 /home（构建上下文根下已镜像 home/shihao/... 布局）
-COPY home /home
+# --chmod=0777：平台容器以非 root 的随机用户(如 liupuze)运行，文件属主是构建时的
+#   uid 1000，否则 Isaac Sim 写不了它的扩展缓存/日志(PermissionError)。改 777 让任意用户可写，
+#   且在 COPY 阶段设权限【不会增加镜像体积】(不像 RUN chmod -R 会复制整层)。
+COPY --chmod=0777 home /home
 
 # 与开发机保持一致的运行环境
 ENV HOME=/home/shihao
