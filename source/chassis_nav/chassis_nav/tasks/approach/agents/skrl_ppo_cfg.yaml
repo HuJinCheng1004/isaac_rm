@@ -1,5 +1,6 @@
 # skrl PPO configuration for the chassis approach/align task.
-# Small MLP (the observation is ~16-D: 7-D 3D bbox + 9-D proprio) -- NO CNN, per the design spec.
+# Small MLP (observation 18-D: 9-D bbox[x,y,z,dist,sx,sy,sz,u_ndc,v_ndc] + 2-D chassis_vel
+# + 1-D lift + 6-D last_actions[2 frames]) -- input auto-sizes from OBSERVATIONS, NO CNN.
 # Reference: https://skrl.readthedocs.io/en/latest/api/agents/ppo.html
 seed: 42
 

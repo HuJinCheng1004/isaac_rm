@@ -9,11 +9,13 @@
 姿态和目标物体姿态，它在**相机光学坐标系**（x 右、y 下、z 前，米——与
 run_realtime 完全一致）下解析地给出目标的 3D 框，并返回:
 
-    ``(x, y, z, distance, sx, sy, sz)``
+    ``(x, y, z, distance, sx, sy, sz, u_ndc, v_ndc)``
 
 其中 ``(x, y, z)`` 是目标中心在相机系下的米制坐标，``distance`` 是中心到
 相机原点的距离（米，即 run_realtime 的 ``Box3D.distance``），``(sx, sy, sz)``
-是目标 3D 框**沿相机坐标轴**（右/下/前）的边长（米）。
+是目标 3D 框**沿相机坐标轴**（右/下/前）的边长（米），``(u_ndc, v_ndc)`` 是中心
+投影到图像的归一化坐标（FOV 边缘=±1）——与奖励/成功判据同口径的居中角度信号
+（等价于 2D 检测框中心，真机直接可得）。
 
 真机部署用 run_realtime 的 ``--no-oriented``（AABB，``R = I``）：其边长就是点云
 在相机轴上的范围，**不做主轴旋转/排序**。因此本观察也把目标 OBB 的 8 角变换到
@@ -70,7 +72,7 @@ class BBox3DState(NamedTuple):
     u_ndc: torch.Tensor     # (N,)   中心水平投影 (FOV 边缘 = +/-1)
     v_ndc: torch.Tensor     # (N,)   中心垂直投影 (FOV 边缘 = +/-1)
     visible: torch.Tensor   # (N,)   目标中心在镜头前且落在画面内
-    obs: torch.Tensor       # (N, 7) 策略可见的清晰观察 [x,y,z,dist,sx,sy,sz]
+    obs: torch.Tensor       # (N, 9) 策略可见的清晰观察 [x,y,z,dist,sx,sy,sz,u_ndc,v_ndc]
 
 
 def get_bbox3d_state(env: "ManagerBasedEnv") -> BBox3DState:
@@ -124,9 +126,12 @@ class BBox3DObservation(ManagerTermBase):
         self._right_axis = torch.tensor(axes["right"], dtype=torch.float32, device=self.device)
         self._up_axis = torch.tensor(axes["up"], dtype=torch.float32, device=self.device)
 
-        # sim-to-real 损坏参数：噪声为 7 维米制标准差 (x,y,z,dist,sx,sy,sz)。
+        # sim-to-real 损坏参数：噪声为 9 维标准差。前 7 维米制 (x,y,z,dist,sx,sy,sz)，
+        # 后 2 维为图像归一化坐标 (u_ndc, v_ndc) —— 直接暴露居中角度信号，与奖励/成功
+        # 判据（用 u_ndc/v_ndc）口径一致，避免策略只能从 x/z 反算（近距且目标在下倾光轴
+        # 下方时 z→0、该比值病态）。
         self._noise_std = torch.tensor(
-            p.get("noise_std", (0.02, 0.02, 0.04, 0.04, 0.02, 0.02, 0.03)),
+            p.get("noise_std", (0.02, 0.02, 0.04, 0.04, 0.02, 0.02, 0.03, 0.02, 0.02)),
             dtype=torch.float32, device=self.device,
         )
         self._dropout_prob = float(p.get("dropout_prob", 0.05))
@@ -144,8 +149,8 @@ class BBox3DObservation(ManagerTermBase):
             )
         self._cam_idx = cam_ids[0]
 
-        # 观察维度（策略可见的 3D 框向量长度）
-        self._obs_dim = 7
+        # 观察维度（策略可见向量长度）：3D 框 7 维 + 图像归一化中心 (u_ndc, v_ndc)。
+        self._obs_dim = 9
 
         # 延迟环形缓冲（索引 0 = 最新），每环延迟，步骤簿记
         self._buffer = torch.zeros(self.num_envs, self._max_lat + 1, self._obs_dim, device=self.device)
@@ -214,7 +219,8 @@ class BBox3DObservation(ManagerTermBase):
         size_z = fwd_c.amax(dim=1) - fwd_c.amin(dim=1)
         size = torch.stack([size_x, size_y, size_z], dim=-1)  # (N,3) 相机轴 AABB 边长
 
-        obs = torch.cat([center, distance.unsqueeze(-1), size], dim=-1)  # (N,7)
+        ndc = torch.stack([u_ndc, v_ndc], dim=-1)                       # (N,2) 图像归一化中心
+        obs = torch.cat([center, distance.unsqueeze(-1), size, ndc], dim=-1)  # (N,9)
         obs = torch.where(visible.unsqueeze(-1), obs, torch.zeros_like(obs))
 
         self._cache = BBox3DState(
@@ -237,7 +243,7 @@ class BBox3DObservation(ManagerTermBase):
         vfov: float = 0.75,
         camera_axes: dict | None = None,
         target_size: tuple = (0.25, 0.25, 0.40),
-        noise_std: tuple = (0.02, 0.02, 0.04, 0.04, 0.02, 0.02, 0.03),
+        noise_std: tuple = (0.02, 0.02, 0.04, 0.04, 0.02, 0.02, 0.03, 0.02, 0.02),
         dropout_prob: float = 0.05,
         latency_steps: tuple = (1, 2),
     ) -> torch.Tensor:

@@ -71,9 +71,10 @@ COLLISION_DIST = 0.25       # 被计为碰撞的底座<->目标距离 [m]
 SUCCESS_DWELL = 5           # 成功条件必须保持的步数（0.5 s @ 10 Hz）—— 由 10 放宽
 LOST_DWELL = 10             # 丢失条件必须保持的步数
 
-# Sim-to-real 损坏（BBox3DObservation）：3D 框观察 (x,y,z,distance,sx,sy,sz)，
-# 噪声为米制标准差（深度/距离通道更大，模拟 RealSense 深度噪声）。
-BBOX_NOISE_STD = (0.02, 0.02, 0.04, 0.04, 0.02, 0.02, 0.03)
+# Sim-to-real 损坏（BBox3DObservation）：观察 (x,y,z,distance,sx,sy,sz,u_ndc,v_ndc)，
+# 前 7 维米制标准差（深度/距离通道更大，模拟 RealSense 深度噪声），后 2 维为图像
+# 归一化坐标噪声（2D 检测框中心，较准）。
+BBOX_NOISE_STD = (0.02, 0.02, 0.04, 0.04, 0.02, 0.02, 0.03, 0.02, 0.02)
 DROPOUT_PROB = 0.05                          # 每步假阴性概率
 LATENCY_STEPS = (1, 2)                       # 观察延迟范围 [t-1, t-2]
 
@@ -138,8 +139,9 @@ class ActionsCfg:
 class ObservationsCfg:
     @configclass
     class PolicyCfg(ObsGroup):
-        # 1) analytic target 3D bbox (x, y, z, distance, sx, sy, sz) -- corrupted.
-        #    相机系下的 3D 框，镜像 run_realtime.py 的 Box3D 输出。
+        # 1) analytic target obs (x, y, z, distance, sx, sy, sz, u_ndc, v_ndc) -- corrupted.
+        #    相机系 3D 框（镜像 run_realtime.py 的 Box3D）+ 图像归一化中心 (u_ndc, v_ndc)，
+        #    后者与 centering 奖励/成功判据同口径，直接给策略居中角度信号。
         bbox = ObsTerm(
             func=mdp.BBox3DObservation,
             params={
@@ -335,6 +337,6 @@ class ChassisApproachEnvCfg_PLAY(ChassisApproachEnvCfg):
         super().__post_init__()
         self.scene.num_envs = 16
         self.scene.env_spacing = 6.0
-        # keep corruption on so playback reflects the real (noisy/delayed) pipeline
-        # 与训练 checkpoint 保持一致：history_length=1 → last_actions (3,)，obs 共 13 维
-        self.observations.policy.last_actions.history_length = 1
+        # keep corruption on so playback reflects the real (noisy/delayed) pipeline.
+        # 观测维度与训练保持一致（不再覆盖 last_actions.history_length）：
+        #   bbox(9) + chassis_vel(2) + lift(1) + last_actions(2*3=6) = 18 维。
