@@ -16,6 +16,7 @@ import math
 import isaaclab.sim as sim_utils
 from isaaclab.assets import ArticulationCfg, AssetBaseCfg, RigidObjectCfg
 from isaaclab.envs import ManagerBasedRLEnvCfg
+from isaaclab.managers import CurriculumTermCfg as CurrTerm
 from isaaclab.managers import EventTermCfg as EventTerm
 from isaaclab.managers import ObservationGroupCfg as ObsGroup
 from isaaclab.managers import ObservationTermCfg as ObsTerm
@@ -69,7 +70,9 @@ NEAR_PENALTY = 4.0          # approach 近端惩罚斜率：distance < D_TARGET 
 CENTER_TOL = 0.25           # 居中成功容差：|中心投影| (ndc)  —— 由 0.15 放宽
 DIST_TOL = 0.2             # 距离成功容差：|distance - D_target| [m]
 SUCCESS_DWELL = 5           # 成功条件必须保持的步数（0.5 s @ 10 Hz）—— 由 10 放宽
-LOST_DWELL = 1              # 丢失视野立即判失败（保持 1 步）—— 碰撞终止已移除
+# 丢失视野连续 LOST_DWELL 步才判失败。由 1 放宽到 3（0.3 s 宽限），避免观测
+# 丢帧（dropout_prob）/bbox 噪声导致 visible 抖一帧就触发"假失败"，逼策略不敢靠近。
+LOST_DWELL = 3
 
 # Sim-to-real 损坏（BBox3DObservation）：观察 (x,y,z,distance,sx,sy,sz,u_ndc,v_ndc)，
 # 前 7 维米制标准差（深度/距离通道更大，模拟 RealSense 深度噪声），后 2 维为图像
@@ -79,10 +82,17 @@ DROPOUT_PROB = 0.05                          # 每步假阴性概率
 LATENCY_STEPS = (1, 2)                       # 观察延迟范围 [t-1, t-2]
 
 # 终端奖励权重除以 dt（奖励 = func * weight * dt）。
-# 对于 dt = 0.1 s：权重 1000 -> +100 有效；权重 -500 -> -50 有效。
+# 对于 dt = 0.1 s：权重 1000 -> +100 有效；权重 -200 -> -20 有效。
+# 失败有效惩罚由 -50 下调到 -20，配合 LOST_DWELL 放宽与 approach 正向化，缓解
+# "成功难、失败易"的不对称，让策略敢于冒险靠近。
 DT = 1.0 / CONTROL_HZ
 SUCCESS_WEIGHT = 100.0 / DT
-FAILURE_WEIGHT = -50.0 / DT
+FAILURE_WEIGHT = -20.0 / DT
+
+# --- 课程（curriculum）：随训练把重置难度从"近、正前方"线性扩展到完整范围 ---
+CURRICULUM_STEPS = 30000    # 在前 N 个训练步内线性退火到满难度（与 trainer.timesteps 同单位）
+YAW_HALF_START = 0.6        # 初始偏航半幅 [rad]（≈±34°，目标基本在正前方，易保持在视野内）
+D_MAX_START = 1.6           # 初始目标深度上限 [m]（初期更近，靠近路径短、丢失风险低）
 
 
 ##
@@ -253,9 +263,11 @@ class EventsCfg:
 @configclass
 class RewardsCfg:
     centering = RewTerm(func=mdp.centering, weight=1.0, params={"k": CENTER_K})
+    # approach 现为单峰正向塑形（峰值 +1 @ d_target）。提高权重到 2.0，强化"靠近"密集
+    # 信号——诊断显示旧策略只学会居中、不肯靠近。
     approach = RewTerm(
         func=mdp.approach,
-        weight=1.0,
+        weight=2.0,
         params={"d_target": D_TARGET, "near_penalty": NEAR_PENALTY},
     )
     # 抑制底盘(前向/偏航)与升降杆速度指令的加速度（急加减速/抖动）。
@@ -285,6 +297,25 @@ class TerminationsCfg:
     )
 
 
+@configclass
+class CurriculumCfg:
+    """随训练线性扩展 ``reset_in_view`` 的初始难度（偏航半幅 + 目标深度上限）。
+
+    早期目标近、基本在正前方 -> 易制造成功经验；``CURRICULUM_STEPS`` 步后退火到
+    ``reset_in_view`` 配置的完整 ``yaw_range`` / ``d_range``。课程项直接修改重置事件
+    实例缓存的激活范围（见 :func:`mdp.approach_difficulty`）。
+    """
+
+    approach_difficulty = CurrTerm(
+        func=mdp.approach_difficulty,
+        params={
+            "num_steps": CURRICULUM_STEPS,
+            "yaw_start": YAW_HALF_START,
+            "d_max_start": D_MAX_START,
+        },
+    )
+
+
 ##
 # Environment
 ##
@@ -296,6 +327,7 @@ class ChassisApproachEnvCfg(ManagerBasedRLEnvCfg):
     events: EventsCfg = EventsCfg()
     rewards: RewardsCfg = RewardsCfg()
     terminations: TerminationsCfg = TerminationsCfg()
+    curriculum: CurriculumCfg = CurriculumCfg()
 
     def __post_init__(self):
         self.decimation = int(round(PHYSICS_HZ / CONTROL_HZ))  # 10 physics steps / control step
@@ -347,6 +379,8 @@ class ChassisApproachEnvCfg_PLAY(ChassisApproachEnvCfg):
         super().__post_init__()
         self.scene.num_envs = 16
         self.scene.env_spacing = 6.0
+        # 回放/评估按满难度进行（关闭课程，否则 common_step_counter=0 会一直停在最易档）。
+        self.curriculum = None
         # keep corruption on so playback reflects the real (noisy/delayed) pipeline.
         # 观测维度与训练保持一致（不再覆盖 last_actions.history_length）：
         #   bbox(9) + chassis_vel(2) + lift(1) + last_actions(2*3=6) = 18 维。

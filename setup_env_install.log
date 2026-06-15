@@ -1,0 +1,415 @@
+===== [1/5] 创建 conda 环境：isaac_rm (Python 3.11) =====
+2 channel Terms of Service accepted
+Retrieving notices: - \ | / - \ | / done
+Channels:
+ - defaults
+Platform: linux-64
+Collecting package metadata (repodata.json): \ | / - \ | / - \ | / - \ | / - \ | / - \ | / - \ | / - \ | / - \ | / - \ | / done
+Solving environment: \ | done
+
+## Package Plan ##
+
+  environment location: /home/hjc/miniconda3/envs/isaac_rm
+
+  added / updated specs:
+    - python=3.11
+
+
+The following packages will be downloaded:
+
+    package                    |            build
+    ---------------------------|-----------------
+    libnsl-2.0.0               |       h5eee18b_0          31 KB
+    packaging-26.0             |  py311h06a4308_0         197 KB
+    python-3.11.15             |       h741d88c_0        29.5 MB
+    setuptools-82.0.1          |  py311h06a4308_0         1.6 MB
+    wheel-0.46.3               |  py311h06a4308_0          71 KB
+    ------------------------------------------------------------
+                                           Total:        31.4 MB
+
+The following NEW packages will be INSTALLED:
+
+  _libgcc_mutex      pkgs/main/linux-64::_libgcc_mutex-0.1-main 
+  _openmp_mutex      pkgs/main/linux-64::_openmp_mutex-5.1-1_gnu 
+  bzip2              pkgs/main/linux-64::bzip2-1.0.8-h5eee18b_6 
+  ca-certificates    pkgs/main/linux-64::ca-certificates-2026.3.19-h06a4308_0 
+  ld_impl_linux-64   pkgs/main/linux-64::ld_impl_linux-64-2.44-h9e0c5a2_3 
+  libexpat           pkgs/main/linux-64::libexpat-2.8.0-h7354ed3_0 
+  libffi             pkgs/main/linux-64::libffi-3.4.8-hc5d346e_2 
+  libgcc             pkgs/main/linux-64::libgcc-15.2.0-h69a1729_7 
+  libgcc-ng          pkgs/main/linux-64::libgcc-ng-15.2.0-h166f726_7 
+  libgomp            pkgs/main/linux-64::libgomp-15.2.0-h4751f2c_7 
+  libnsl             pkgs/main/linux-64::libnsl-2.0.0-h5eee18b_0 
+  libstdcxx          pkgs/main/linux-64::libstdcxx-15.2.0-h39759b7_7 
+  libuuid            pkgs/main/linux-64::libuuid-1.41.5-h5eee18b_0 
+  libxcb             pkgs/main/linux-64::libxcb-1.17.0-h9b100fa_0 
+  libzlib            pkgs/main/linux-64::libzlib-1.3.1-h47b2149_1 
+  ncurses            pkgs/main/linux-64::ncurses-6.5-h7934f7d_0 
+  openssl            pkgs/main/linux-64::openssl-3.5.6-h1b28b03_0 
+  packaging          pkgs/main/linux-64::packaging-26.0-py311h06a4308_0 
+  pip                pkgs/main/noarch::pip-26.0.1-pyhc872135_1 
+  pthread-stubs      pkgs/main/linux-64::pthread-stubs-0.3-h0ce48e5_1 
+  python             pkgs/main/linux-64::python-3.11.15-h741d88c_0 
+  readline           pkgs/main/linux-64::readline-8.3-hc2a1206_0 
+  setuptools         pkgs/main/linux-64::setuptools-82.0.1-py311h06a4308_0 
+  sqlite             pkgs/main/linux-64::sqlite-3.51.2-h3e8d24a_0 
+  tk                 pkgs/main/linux-64::tk-8.6.15-h54e0aa7_0 
+  tzdata             pkgs/main/noarch::tzdata-2026a-he532380_0 
+  wheel              pkgs/main/linux-64::wheel-0.46.3-py311h06a4308_0 
+  xorg-libx11        pkgs/main/linux-64::xorg-libx11-1.8.12-h9b100fa_1 
+  xorg-libxau        pkgs/main/linux-64::xorg-libxau-1.0.12-h9b100fa_0 
+  xorg-libxdmcp      pkgs/main/linux-64::xorg-libxdmcp-1.1.5-h9b100fa_0 
+  xorg-xorgproto     pkgs/main/linux-64::xorg-xorgproto-2024.1-h5eee18b_1 
+  xz                 pkgs/main/linux-64::xz-5.8.2-h448239c_0 
+  zlib               pkgs/main/linux-64::zlib-1.3.1-h47b2149_1 
+
+
+
+Downloading and Extracting Packages: ...working...python-3.11.15       | 29.5 MB   |            |   0% 
+setuptools-82.0.1    | 1.6 MB    |            |   0% [A
+
+packaging-26.0       | 197 KB    |            |   0% [A[A
+
+
+wheel-0.46.3         | 71 KB     |            |   0% [A[A[A
+
+
+
+libnsl-2.0.0         | 31 KB     |            |   0% [A[A[A[A
+
+packaging-26.0       | 197 KB    | 8          |   8% [A[A
+
+
+
+libnsl-2.0.0         | 31 KB     | #####1     |  52% [A[A[A[A
+setuptools-82.0.1    | 1.6 MB    |            |   1% [Apython-3.11.15       | 29.5 MB   |            |   0% 
+
+
+wheel-0.46.3         | 71 KB     | ##2        |  23% [A[A[A
+
+
+
+libnsl-2.0.0         | 31 KB     | ########## | 100% [A[A[A[A
+
+
+
+libnsl-2.0.0         | 31 KB     | ########## | 100% [A[A[A[Apython-3.11.15       | 29.5 MB   |            |   0% 
+
+packaging-26.0       | 197 KB    | #6         |  16% [A[A
+
+
+wheel-0.46.3         | 71 KB     | ####5      |  45% [A[A[A
+setuptools-82.0.1    | 1.6 MB    | 1          |   2% [A
+
+
+
+libnsl-2.0.0         | 31 KB     | ########## | 100% [A[A[A[Apython-3.11.15       | 29.5 MB   |            |   0% 
+
+
+wheel-0.46.3         | 71 KB     | #########  |  90% [A[A[A
+
+
+wheel-0.46.3         | 71 KB     | ########## | 100% [A[A[A
+
+
+wheel-0.46.3         | 71 KB     | ########## | 100% [A[A[A
+setuptools-82.0.1    | 1.6 MB    | 6          |   7% [A
+
+packaging-26.0       | 197 KB    | ######4    |  65% [A[A
+
+packaging-26.0       | 197 KB    | ########## | 100% [A[Apython-3.11.15       | 29.5 MB   |            |   0% 
+
+packaging-26.0       | 197 KB    | ########## | 100% [A[A
+setuptools-82.0.1    | 1.6 MB    | #1         |  12% [A
+setuptools-82.0.1    | 1.6 MB    | ###5       |  35% [Apython-3.11.15       | 29.5 MB   |            |   1% 
+setuptools-82.0.1    | 1.6 MB    | ####5      |  45% [Apython-3.11.15       | 29.5 MB   | 1          |   1% 
+setuptools-82.0.1    | 1.6 MB    | #####7     |  57% [A
+setuptools-82.0.1    | 1.6 MB    | ######7    |  67% [A
+setuptools-82.0.1    | 1.6 MB    | #######5   |  76% [A
+setuptools-82.0.1    | 1.6 MB    | ########1  |  82% [Apython-3.11.15       | 29.5 MB   | 2          |   2% python-3.11.15       | 29.5 MB   | 2          |   2% 
+setuptools-82.0.1    | 1.6 MB    | ########7  |  88% [Apython-3.11.15       | 29.5 MB   | 3          |   3% 
+setuptools-82.0.1    | 1.6 MB    | ########## | 100% [Apython-3.11.15       | 29.5 MB   | 3          |   4% 
+setuptools-82.0.1    | 1.6 MB    | ########## | 100% [A
+setuptools-82.0.1    | 1.6 MB    | ########## | 100% [Apython-3.11.15       | 29.5 MB   | 5          |   6% python-3.11.15       | 29.5 MB   | 6          |   7% python-3.11.15       | 29.5 MB   | 8          |   8% python-3.11.15       | 29.5 MB   | #          |  10% python-3.11.15       | 29.5 MB   | #2         |  12% python-3.11.15       | 29.5 MB   | #3         |  13% python-3.11.15       | 29.5 MB   | #5         |  15% python-3.11.15       | 29.5 MB   | #9         |  20% python-3.11.15       | 29.5 MB   | ##1        |  22% python-3.11.15       | 29.5 MB   | ##4        |  24% python-3.11.15       | 29.5 MB   | ##6        |  26% python-3.11.15       | 29.5 MB   | ###1       |  32% python-3.11.15       | 29.5 MB   | ###4       |  34% python-3.11.15       | 29.5 MB   | ###6       |  36% python-3.11.15       | 29.5 MB   | ###8       |  38% python-3.11.15       | 29.5 MB   | ####1      |  42% python-3.11.15       | 29.5 MB   | ####3      |  44% python-3.11.15       | 29.5 MB   | ####6      |  47% python-3.11.15       | 29.5 MB   | ####8      |  49% python-3.11.15       | 29.5 MB   | #####      |  51% python-3.11.15       | 29.5 MB   | #####4     |  55% python-3.11.15       | 29.5 MB   | #####6     |  57% python-3.11.15       | 29.5 MB   | #####8     |  58% python-3.11.15       | 29.5 MB   | #####9     |  60% python-3.11.15       | 29.5 MB   | ######1    |  61% python-3.11.15       | 29.5 MB   | ######2    |  63% python-3.11.15       | 29.5 MB   | ######6    |  66% python-3.11.15       | 29.5 MB   | ######8    |  68% python-3.11.15       | 29.5 MB   | #######    |  71% python-3.11.15       | 29.5 MB   | #######2   |  73% python-3.11.15       | 29.5 MB   | #######6   |  76% python-3.11.15       | 29.5 MB   | #######8   |  78% python-3.11.15       | 29.5 MB   | ########   |  80% python-3.11.15       | 29.5 MB   | ########1  |  82% python-3.11.15       | 29.5 MB   | ########3  |  83% python-3.11.15       | 29.5 MB   | ########7  |  87% python-3.11.15       | 29.5 MB   | #########  |  90% python-3.11.15       | 29.5 MB   | #########2 |  92% python-3.11.15       | 29.5 MB   | #########6 |  96% python-3.11.15       | 29.5 MB   | #########8 |  98% python-3.11.15       | 29.5 MB   | ########## | 100% python-3.11.15       | 29.5 MB   | ########## | 100%                                                      
+                                                     [A
+
+                                                     [A[A
+
+
+                                                     [A[A[A
+
+
+
+                                                     [A[A[A[A done
+Preparing transaction: - \ | / - \ | / - \ | / - \ | / - done
+Verifying transaction: | / - \ | / - \ | / - \ | / - \ | / - \ | / - \ | / - \ | / - \ | / - \ | done
+Executing transaction: - \ | / - \ | / - \ | / - \ | / - \ | / - \ | / - \ | / - \ | / - \ | done
+#
+# To activate this environment, use
+#
+#     $ conda activate isaac_rm
+#
+# To deactivate an active environment, use
+#
+#     $ conda deactivate
+
+
+Channel "defaults" has the following notices:
+  [info] -- Tue Jun  9 00:00:00 2026
+  PyTorch 2.12 with CUDA support is now available to install with your current channel (Anaconda Main). Learn more: https://anaconda.org/main/pytorch?utm_source=channel_notices
+
+===== [2/5] 安装 Isaac Sim 5.1.0（NVIDIA PyPI，约 5~10 GB，请耐心等待）=====
+Looking in indexes: https://mirrors.aliyun.com/pypi/simple/, https://pypi.nvidia.com
+Collecting isaacsim==5.1.0.0 (from isaacsim[all]==5.1.0.0)
+  Downloading https://pypi.nvidia.com/isaacsim/isaacsim-5.1.0.0-cp311-none-manylinux_2_35_x86_64.whl (33 kB)
+Collecting isaacsim-kernel==5.1.0.0 (from isaacsim==5.1.0.0->isaacsim[all]==5.1.0.0)
+  Downloading https://pypi.nvidia.com/isaacsim-kernel/isaacsim_kernel-5.1.0.0-cp311-none-manylinux_2_35_x86_64.whl (64.3 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 64.3/64.3 MB 3.5 MB/s  0:00:18
+Collecting aiohttp==3.11.11 (from isaacsim-kernel==5.1.0.0->isaacsim==5.1.0.0->isaacsim[all]==5.1.0.0)
+  Downloading https://mirrors.aliyun.com/pypi/packages/c4/11/f478e071815a46ca0a5ae974651ff0c7a35898c55063305a896e58aa1247/aiohttp-3.11.11-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (1.7 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.7/1.7 MB 317.5 kB/s  0:00:04
+Collecting pycares==4.8.0 (from isaacsim-kernel==5.1.0.0->isaacsim==5.1.0.0->isaacsim[all]==5.1.0.0)
+  Downloading https://mirrors.aliyun.com/pypi/packages/31/72/158a2c1f456b3674490db1788769f17fbf6d6b4481c46e7687485518bce0/pycares-4.8.0-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (626 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 626.2/626.2 kB 349.8 kB/s  0:00:01
+Collecting aiodns==3.1.1 (from isaacsim-kernel==5.1.0.0->isaacsim==5.1.0.0->isaacsim[all]==5.1.0.0)
+  Downloading https://mirrors.aliyun.com/pypi/packages/1a/74/976abff30200cb0cab0bd076db074b8cdda9236ba885ebe3f4d91c7e074b/aiodns-3.1.1-py3-none-any.whl (5.4 kB)
+Collecting Pillow==11.3.0 (from isaacsim-kernel==5.1.0.0->isaacsim==5.1.0.0->isaacsim[all]==5.1.0.0)
+  Downloading https://mirrors.aliyun.com/pypi/packages/f2/2f/d7675ecae6c43e9f12aa8d58b6012683b20b6edfbdac7abcb4e6af7a3784/pillow-11.3.0-cp311-cp311-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl (6.6 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 6.6/6.6 MB 281.4 kB/s  0:00:23
+Collecting toml==0.10.2 (from isaacsim-kernel==5.1.0.0->isaacsim==5.1.0.0->isaacsim[all]==5.1.0.0)
+  Downloading https://mirrors.aliyun.com/pypi/packages/44/6f/7120676b6d73228c96e17f1f794d8ab046fc910d781c8d151120c3f1569e/toml-0.10.2-py2.py3-none-any.whl (16 kB)
+Collecting numpy==1.26.0 (from isaacsim-kernel==5.1.0.0->isaacsim==5.1.0.0->isaacsim[all]==5.1.0.0)
+  Downloading https://mirrors.aliyun.com/pypi/packages/c4/36/161e2f8110f8c49e59f6107bd6da4257d30aff9f06373d0471811f73dcc5/numpy-1.26.0-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (18.2 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 18.2/18.2 MB 321.2 kB/s  0:00:55
+Collecting click==8.1.7 (from isaacsim-kernel==5.1.0.0->isaacsim==5.1.0.0->isaacsim[all]==5.1.0.0)
+  Downloading https://mirrors.aliyun.com/pypi/packages/00/2e/d53fa4befbf2cfa713304affc7ca780ce4fc1fd8710527771b58311a3229/click-8.1.7-py3-none-any.whl (97 kB)
+Collecting websockets==12.0 (from isaacsim-kernel==5.1.0.0->isaacsim==5.1.0.0->isaacsim[all]==5.1.0.0)
+  Downloading https://mirrors.aliyun.com/pypi/packages/e3/05/f52a60b66d9faf07a4f7d71dc056bffafe36a7e98c4eb5b78f04fe6e4e85/websockets-12.0-cp311-cp311-manylinux_2_5_x86_64.manylinux1_x86_64.manylinux_2_17_x86_64.manylinux2014_x86_64.whl (130 kB)
+Collecting fastapi==0.115.7 (from isaacsim-kernel==5.1.0.0->isaacsim==5.1.0.0->isaacsim[all]==5.1.0.0)
+  Downloading https://mirrors.aliyun.com/pypi/packages/e6/7f/bbd4dcf0faf61bc68a01939256e2ed02d681e9334c1a3cef24d5f77aba9f/fastapi-0.115.7-py3-none-any.whl (94 kB)
+Collecting attrs==25.1.0 (from isaacsim-kernel==5.1.0.0->isaacsim==5.1.0.0->isaacsim[all]==5.1.0.0)
+  Downloading https://mirrors.aliyun.com/pypi/packages/fc/30/d4986a882011f9df997a55e6becd864812ccfcd821d64aac8570ee39f719/attrs-25.1.0-py3-none-any.whl (63 kB)
+Collecting multidict==6.1.0 (from isaacsim-kernel==5.1.0.0->isaacsim==5.1.0.0->isaacsim[all]==5.1.0.0)
+  Downloading https://mirrors.aliyun.com/pypi/packages/ba/af/73d13b918071ff9b2205fcf773d316e0f8fefb4ec65354bbcf0b10908cc6/multidict-6.1.0-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (129 kB)
+Collecting async_timeout==5.0.1 (from isaacsim-kernel==5.1.0.0->isaacsim==5.1.0.0->isaacsim[all]==5.1.0.0)
+  Downloading https://mirrors.aliyun.com/pypi/packages/fe/ba/e2081de779ca30d473f21f5b30e0e737c438205440784c7dfc81efc2b029/async_timeout-5.0.1-py3-none-any.whl (6.2 kB)
+Collecting yarl==1.18.3 (from isaacsim-kernel==5.1.0.0->isaacsim==5.1.0.0->isaacsim[all]==5.1.0.0)
+  Downloading https://mirrors.aliyun.com/pypi/packages/af/ba/1865d85212351ad160f19fb99808acf23aab9a0f8ff31c8c9f1b4d671fc9/yarl-1.18.3-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (344 kB)
+Collecting idna==3.10 (from isaacsim-kernel==5.1.0.0->isaacsim==5.1.0.0->isaacsim[all]==5.1.0.0)
+  Downloading https://mirrors.aliyun.com/pypi/packages/76/c6/c88e154df9c4e1a2a66ccf0005a88dfb2650c1dffb6f5ce603dfbd452ce3/idna-3.10-py3-none-any.whl (70 kB)
+Collecting idna-ssl==1.1.0 (from isaacsim-kernel==5.1.0.0->isaacsim==5.1.0.0->isaacsim[all]==5.1.0.0)
+  Downloading https://mirrors.aliyun.com/pypi/packages/46/03/07c4894aae38b0de52b52586b24bf189bb83e4ddabfe2e2c8f2419eec6f4/idna-ssl-1.1.0.tar.gz (3.4 kB)
+  Installing build dependencies: started
+  Installing build dependencies: finished with status 'done'
+  Getting requirements to build wheel: started
+  Getting requirements to build wheel: finished with status 'done'
+  Preparing metadata (pyproject.toml): started
+  Preparing metadata (pyproject.toml): finished with status 'done'
+Collecting typing_extensions==4.12.2 (from isaacsim-kernel==5.1.0.0->isaacsim==5.1.0.0->isaacsim[all]==5.1.0.0)
+  Downloading https://mirrors.aliyun.com/pypi/packages/26/9f/ad63fc0248c5379346306f8668cda6e2e2e9c95e01216d2b8ffd9ff037d0/typing_extensions-4.12.2-py3-none-any.whl (37 kB)
+Collecting aiofiles==23.2.1 (from isaacsim-kernel==5.1.0.0->isaacsim==5.1.0.0->isaacsim[all]==5.1.0.0)
+  Downloading https://mirrors.aliyun.com/pypi/packages/c5/19/5af6804c4cc0fed83f47bff6e413a98a36618e7d40185cd36e69737f3b0e/aiofiles-23.2.1-py3-none-any.whl (15 kB)
+Collecting aiosignal==1.3.2 (from isaacsim-kernel==5.1.0.0->isaacsim==5.1.0.0->isaacsim[all]==5.1.0.0)
+  Downloading https://mirrors.aliyun.com/pypi/packages/ec/6a/bc7e17a3e87a2985d3e8f4da4cd0f481060eb78fb08596c42be62c90a4d9/aiosignal-1.3.2-py2.py3-none-any.whl (7.6 kB)
+Collecting uvicorn==0.29.0 (from isaacsim-kernel==5.1.0.0->isaacsim==5.1.0.0->isaacsim[all]==5.1.0.0)
+  Downloading https://mirrors.aliyun.com/pypi/packages/73/f5/cbb16fcbe277c1e0b8b3ddd188f2df0e0947f545c49119b589643632d156/uvicorn-0.29.0-py3-none-any.whl (60 kB)
+Collecting httptools==0.6.1 (from isaacsim-kernel==5.1.0.0->isaacsim==5.1.0.0->isaacsim[all]==5.1.0.0)
+  Downloading https://mirrors.aliyun.com/pypi/packages/59/23/047a89e66045232fb82c50ae57699e40f70e073ae5ccd53f54e532fbd2a2/httptools-0.6.1-cp311-cp311-manylinux_2_5_x86_64.manylinux1_x86_64.manylinux_2_17_x86_64.manylinux2014_x86_64.whl (318 kB)
+Collecting asteval==1.0.6 (from isaacsim-kernel==5.1.0.0->isaacsim==5.1.0.0->isaacsim[all]==5.1.0.0)
+  Downloading https://mirrors.aliyun.com/pypi/packages/13/ac/19dbba27e891f39feb4170b884da449ee2699ef4ebb88eefeda364bbbbcf/asteval-1.0.6-py3-none-any.whl (22 kB)
+Collecting python-multipart==0.0.20 (from isaacsim-kernel==5.1.0.0->isaacsim==5.1.0.0->isaacsim[all]==5.1.0.0)
+  Downloading https://mirrors.aliyun.com/pypi/packages/45/58/38b5afbc1a800eeea951b9285d3912613f2603bdf897a4ab0f4bd7f405fc/python_multipart-0.0.20-py3-none-any.whl (24 kB)
+Collecting wrapt==1.16.0 (from isaacsim-kernel==5.1.0.0->isaacsim==5.1.0.0->isaacsim[all]==5.1.0.0)
+  Downloading https://mirrors.aliyun.com/pypi/packages/6e/52/2da48b35193e39ac53cfb141467d9f259851522d0e8c87153f0ba4205fb1/wrapt-1.16.0-cp311-cp311-manylinux_2_5_x86_64.manylinux1_x86_64.manylinux_2_17_x86_64.manylinux2014_x86_64.whl (80 kB)
+Collecting aioitertools==0.11.0 (from isaacsim-kernel==5.1.0.0->isaacsim==5.1.0.0->isaacsim[all]==5.1.0.0)
+  Downloading https://mirrors.aliyun.com/pypi/packages/45/66/d1a9fd8e6ff88f2157cb145dd054defb0fd7fe2507fe5a01347e7c690eab/aioitertools-0.11.0-py3-none-any.whl (23 kB)
+Collecting coverage==7.4.4 (from isaacsim-kernel==5.1.0.0->isaacsim==5.1.0.0->isaacsim[all]==5.1.0.0)
+  Downloading https://mirrors.aliyun.com/pypi/packages/ab/1c/f8fefae78482f1998f7a9d68419b22089b5ce69a7e0fa0035827d2ce2206/coverage-7.4.4-cp311-cp311-manylinux_2_5_x86_64.manylinux1_x86_64.manylinux_2_17_x86_64.manylinux2014_x86_64.whl (237 kB)
+Collecting watchdog==4.0.0 (from isaacsim-kernel==5.1.0.0->isaacsim==5.1.0.0->isaacsim[all]==5.1.0.0)
+  Downloading https://mirrors.aliyun.com/pypi/packages/91/7b/26d2f43aa9fe428416be21ee1cb9ac75638cf302466b7e706c14eeaea42c/watchdog-4.0.0-py3-none-manylinux2014_x86_64.whl (82 kB)
+Collecting sentry-sdk==2.29.1 (from isaacsim-kernel==5.1.0.0->isaacsim==5.1.0.0->isaacsim[all]==5.1.0.0)
+  Downloading https://mirrors.aliyun.com/pypi/packages/f0/e5/da07b0bd832cefd52d16f2b9bbbe31624d57552602c06631686b93ccb1bd/sentry_sdk-2.29.1-py2.py3-none-any.whl (341 kB)
+Collecting charset_normalizer==3.3.2 (from isaacsim-kernel==5.1.0.0->isaacsim==5.1.0.0->isaacsim[all]==5.1.0.0)
+  Downloading https://mirrors.aliyun.com/pypi/packages/40/26/f35951c45070edc957ba40a5b1db3cf60a9dbb1b350c2d5bef03e01e61de/charset_normalizer-3.3.2-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (140 kB)
+Collecting frozenlist==1.5.0 (from isaacsim-kernel==5.1.0.0->isaacsim==5.1.0.0->isaacsim[all]==5.1.0.0)
+  Downloading https://mirrors.aliyun.com/pypi/packages/b8/5f/c10123e8d64867bc9b4f2f510a32042a306ff5fcd7e2e09e5ae5100ee333/frozenlist-1.5.0-cp311-cp311-manylinux_2_5_x86_64.manylinux1_x86_64.manylinux_2_17_x86_64.manylinux2014_x86_64.whl (274 kB)
+Collecting pytz==2024.1 (from isaacsim-kernel==5.1.0.0->isaacsim==5.1.0.0->isaacsim[all]==5.1.0.0)
+  Downloading https://mirrors.aliyun.com/pypi/packages/9c/3d/a121f284241f08268b21359bd425f7d4825cffc5ac5cd0e1b3d82ffd2b10/pytz-2024.1-py2.py3-none-any.whl (505 kB)
+Collecting qrcode==7.4.2 (from isaacsim-kernel==5.1.0.0->isaacsim==5.1.0.0->isaacsim[all]==5.1.0.0)
+  Downloading https://mirrors.aliyun.com/pypi/packages/24/79/aaf0c1c7214f2632badb2771d770b1500d3d7cbdf2590ae62e721ec50584/qrcode-7.4.2-py3-none-any.whl (46 kB)
+Collecting Jinja2==3.1.6 (from isaacsim-kernel==5.1.0.0->isaacsim==5.1.0.0->isaacsim[all]==5.1.0.0)
+  Downloading https://mirrors.aliyun.com/pypi/packages/62/a1/3d680cbfd5f4b8f15abc1d571870c5fc3e594bb582bc3b64ea099db13e56/jinja2-3.1.6-py3-none-any.whl (134 kB)
+Collecting aiohappyeyeballs==2.4.4 (from isaacsim-kernel==5.1.0.0->isaacsim==5.1.0.0->isaacsim[all]==5.1.0.0)
+  Downloading https://mirrors.aliyun.com/pypi/packages/b9/74/fbb6559de3607b3300b9be3cc64e97548d55678e44623db17820dbd20002/aiohappyeyeballs-2.4.4-py3-none-any.whl (14 kB)
+Collecting propcache==0.2.1 (from isaacsim-kernel==5.1.0.0->isaacsim==5.1.0.0->isaacsim[all]==5.1.0.0)
+  Downloading https://mirrors.aliyun.com/pypi/packages/85/14/01fe53580a8e1734ebb704a3482b7829a0ef4ea68d356141cf0994d9659b/propcache-0.2.1-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (231 kB)
+Collecting psutil==5.9.8 (from isaacsim-kernel==5.1.0.0->isaacsim==5.1.0.0->isaacsim[all]==5.1.0.0)
+  Downloading https://mirrors.aliyun.com/pypi/packages/c5/4f/0e22aaa246f96d6ac87fe5ebb9c5a693fbe8877f537a1022527c47ca43c5/psutil-5.9.8-cp36-abi3-manylinux_2_12_x86_64.manylinux2010_x86_64.manylinux_2_17_x86_64.manylinux2014_x86_64.whl (288 kB)
+Collecting requests==2.32.3 (from isaacsim-kernel==5.1.0.0->isaacsim==5.1.0.0->isaacsim[all]==5.1.0.0)
+  Downloading https://mirrors.aliyun.com/pypi/packages/f9/9b/335f9764261e915ed497fcdeb11df5dfd6f7bf257d4a6a2a686d80da4d54/requests-2.32.3-py3-none-any.whl (64 kB)
+Collecting starlette<0.46.0,>=0.40.0 (from fastapi==0.115.7->isaacsim-kernel==5.1.0.0->isaacsim==5.1.0.0->isaacsim[all]==5.1.0.0)
+  Downloading https://mirrors.aliyun.com/pypi/packages/d9/61/f2b52e107b1fc8944b33ef56bf6ac4ebbe16d91b94d2b87ce013bf63fb84/starlette-0.45.3-py3-none-any.whl (71 kB)
+Collecting pydantic!=1.8,!=1.8.1,!=2.0.0,!=2.0.1,!=2.1.0,<3.0.0,>=1.7.4 (from fastapi==0.115.7->isaacsim-kernel==5.1.0.0->isaacsim==5.1.0.0->isaacsim[all]==5.1.0.0)
+  Downloading https://mirrors.aliyun.com/pypi/packages/fd/7b/122376b1fd3c62c1ed9dc80c931ace4844b3c55407b6fb2d199377c9736f/pydantic-2.13.4-py3-none-any.whl (472 kB)
+Collecting isaacsim-app==5.1.0.0 (from isaacsim[all]==5.1.0.0)
+  Downloading https://pypi.nvidia.com/isaacsim-app/isaacsim_app-5.1.0.0-cp311-none-manylinux_2_35_x86_64.whl (4.8 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 4.8/4.8 MB 3.9 MB/s  0:00:01
+Collecting isaacsim-asset==5.1.0.0 (from isaacsim[all]==5.1.0.0)
+  Downloading https://pypi.nvidia.com/isaacsim-asset/isaacsim_asset-5.1.0.0-cp311-none-manylinux_2_35_x86_64.whl (31.2 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 31.2/31.2 MB 3.6 MB/s  0:00:08
+Collecting isaacsim-benchmark==5.1.0.0 (from isaacsim[all]==5.1.0.0)
+  Downloading https://pypi.nvidia.com/isaacsim-benchmark/isaacsim_benchmark-5.1.0.0-cp311-none-manylinux_2_35_x86_64.whl (1.3 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.3/1.3 MB 3.6 MB/s  0:00:00
+Collecting isaacsim-code-editor==5.1.0.0 (from isaacsim[all]==5.1.0.0)
+  Downloading https://pypi.nvidia.com/isaacsim-code-editor/isaacsim_code_editor-5.1.0.0-cp311-none-manylinux_2_35_x86_64.whl (1.3 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.3/1.3 MB 5.2 MB/s  0:00:00
+Collecting isaacsim-core==5.1.0.0 (from isaacsim[all]==5.1.0.0)
+  Downloading https://pypi.nvidia.com/isaacsim-core/isaacsim_core-5.1.0.0-cp311-none-manylinux_2_35_x86_64.whl (12.8 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 12.8/12.8 MB 4.0 MB/s  0:00:03
+Collecting isaacsim-cortex==5.1.0.0 (from isaacsim[all]==5.1.0.0)
+  Downloading https://pypi.nvidia.com/isaacsim-cortex/isaacsim_cortex-5.1.0.0-cp311-none-manylinux_2_35_x86_64.whl (1.3 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.3/1.3 MB 3.6 MB/s  0:00:00
+Collecting isaacsim-example==5.1.0.0 (from isaacsim[all]==5.1.0.0)
+  Downloading https://pypi.nvidia.com/isaacsim-example/isaacsim_example-5.1.0.0-cp311-none-manylinux_2_35_x86_64.whl (2.7 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 2.7/2.7 MB 6.0 MB/s  0:00:00
+Collecting isaacsim-gui==5.1.0.0 (from isaacsim[all]==5.1.0.0)
+  Downloading https://pypi.nvidia.com/isaacsim-gui/isaacsim_gui-5.1.0.0-cp311-none-manylinux_2_35_x86_64.whl (17.3 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 17.3/17.3 MB 4.0 MB/s  0:00:04
+Collecting isaacsim-replicator==5.1.0.0 (from isaacsim[all]==5.1.0.0)
+  Downloading https://pypi.nvidia.com/isaacsim-replicator/isaacsim_replicator-5.1.0.0-cp311-none-manylinux_2_35_x86_64.whl (20.7 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 20.7/20.7 MB 3.8 MB/s  0:00:05
+Collecting isaacsim-rl==5.1.0.0 (from isaacsim[all]==5.1.0.0)
+  Downloading https://pypi.nvidia.com/isaacsim-rl/isaacsim_rl-5.1.0.0-cp311-none-manylinux_2_35_x86_64.whl (17 kB)
+Collecting isaacsim-robot==5.1.0.0 (from isaacsim[all]==5.1.0.0)
+  Downloading https://pypi.nvidia.com/isaacsim-robot/isaacsim_robot-5.1.0.0-cp311-none-manylinux_2_35_x86_64.whl (11.2 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 11.2/11.2 MB 4.5 MB/s  0:00:02
+Collecting isaacsim-robot-motion==5.1.0.0 (from isaacsim[all]==5.1.0.0)
+  Downloading https://pypi.nvidia.com/isaacsim-robot-motion/isaacsim_robot_motion-5.1.0.0-cp311-none-manylinux_2_35_x86_64.whl (6.2 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 6.2/6.2 MB 4.5 MB/s  0:00:01
+Collecting isaacsim-robot-setup==5.1.0.0 (from isaacsim[all]==5.1.0.0)
+  Downloading https://pypi.nvidia.com/isaacsim-robot-setup/isaacsim_robot_setup-5.1.0.0-cp311-none-manylinux_2_35_x86_64.whl (5.1 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 5.1/5.1 MB 6.4 MB/s  0:00:01
+Collecting isaacsim-ros1==5.1.0.0 (from isaacsim[all]==5.1.0.0)
+  Downloading https://pypi.nvidia.com/isaacsim-ros1/isaacsim_ros1-5.1.0.0-cp311-none-manylinux_2_35_x86_64.whl (17 kB)
+Collecting isaacsim-ros2==5.1.0.0 (from isaacsim[all]==5.1.0.0)
+  Downloading https://pypi.nvidia.com/isaacsim-ros2/isaacsim_ros2-5.1.0.0-cp311-none-manylinux_2_35_x86_64.whl (105.4 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 105.4/105.4 MB 3.5 MB/s  0:00:29
+Collecting isaacsim-sensor==5.1.0.0 (from isaacsim[all]==5.1.0.0)
+  Downloading https://pypi.nvidia.com/isaacsim-sensor/isaacsim_sensor-5.1.0.0-cp311-none-manylinux_2_35_x86_64.whl (15.2 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 15.2/15.2 MB 3.7 MB/s  0:00:04
+Collecting isaacsim-storage==5.1.0.0 (from isaacsim[all]==5.1.0.0)
+  Downloading https://pypi.nvidia.com/isaacsim-storage/isaacsim_storage-5.1.0.0-cp311-none-manylinux_2_35_x86_64.whl (1.2 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.2/1.2 MB 3.7 MB/s  0:00:00
+Collecting isaacsim-template==5.1.0.0 (from isaacsim[all]==5.1.0.0)
+  Downloading https://pypi.nvidia.com/isaacsim-template/isaacsim_template-5.1.0.0-cp311-none-manylinux_2_35_x86_64.whl (331 kB)
+Collecting isaacsim-test==5.1.0.0 (from isaacsim[all]==5.1.0.0)
+  Downloading https://pypi.nvidia.com/isaacsim-test/isaacsim_test-5.1.0.0-cp311-none-manylinux_2_35_x86_64.whl (6.2 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 6.2/6.2 MB 3.6 MB/s  0:00:01
+Collecting isaacsim-utils==5.1.0.0 (from isaacsim[all]==5.1.0.0)
+  Downloading https://pypi.nvidia.com/isaacsim-utils/isaacsim_utils-5.1.0.0-cp311-none-manylinux_2_35_x86_64.whl (2.2 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 2.2/2.2 MB 3.8 MB/s  0:00:00
+Collecting numba==0.59.1 (from isaacsim-core==5.1.0.0->isaacsim[all]==5.1.0.0)
+  Downloading https://mirrors.aliyun.com/pypi/packages/54/f2/7d1579037643c874fa73516ea84c07e8d30ea347fb1a88c03b198447655d/numba-0.59.1-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (3.7 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 3.7/3.7 MB 334.4 kB/s  0:00:10
+Collecting llvmlite==0.42.0 (from isaacsim-core==5.1.0.0->isaacsim[all]==5.1.0.0)
+  Downloading https://mirrors.aliyun.com/pypi/packages/a4/1f/300788b5eab99aec872ed2f3647386d7d7f7bbf4f99c91e9e023b404ff7f/llvmlite-0.42.0-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (43.8 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 43.8/43.8 MB 296.5 kB/s  0:02:21
+Collecting nest_asyncio==1.5.6 (from isaacsim-core==5.1.0.0->isaacsim[all]==5.1.0.0)
+  Downloading https://mirrors.aliyun.com/pypi/packages/e9/1a/6dd9ec31cfdb34cef8fea0055b593ee779a6f63c8e8038ad90d71b7f53c0/nest_asyncio-1.5.6-py3-none-any.whl (5.2 kB)
+Collecting markupsafe==2.1.3 (from isaacsim-core==5.1.0.0->isaacsim[all]==5.1.0.0)
+  Downloading https://mirrors.aliyun.com/pypi/packages/fe/21/2eff1de472ca6c99ec3993eab11308787b9879af9ca8bbceb4868cf4f2ca/MarkupSafe-2.1.3-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (28 kB)
+Collecting matplotlib==3.10.3 (from isaacsim-core==5.1.0.0->isaacsim[all]==5.1.0.0)
+  Downloading https://mirrors.aliyun.com/pypi/packages/e7/e3/c82963a3b86d6e6d5874cbeaa390166458a7f1961bab9feb14d3d1a10f02/matplotlib-3.10.3-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (8.6 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 8.6/8.6 MB 317.7 kB/s  0:00:28
+Collecting contourpy==1.3.1 (from isaacsim-core==5.1.0.0->isaacsim[all]==5.1.0.0)
+  Downloading https://mirrors.aliyun.com/pypi/packages/85/fc/7fa5d17daf77306840a4e84668a48ddff09e6bc09ba4e37e85ffc8e4faa3/contourpy-1.3.1-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (326 kB)
+Collecting fonttools==4.55.3 (from isaacsim-core==5.1.0.0->isaacsim[all]==5.1.0.0)
+  Downloading https://mirrors.aliyun.com/pypi/packages/5d/52/c0b9857fa075da1b8806c5dc2d8342918a8cc2065fd14fbddb3303282693/fonttools-4.55.3-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (4.9 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 4.9/4.9 MB 258.8 kB/s  0:00:18
+Collecting pyparsing==3.0.9 (from isaacsim-core==5.1.0.0->isaacsim[all]==5.1.0.0)
+  Downloading https://mirrors.aliyun.com/pypi/packages/6c/10/a7d0fa5baea8fe7b50f448ab742f26f52b80bfca85ac2be9d35cdd9a3246/pyparsing-3.0.9-py3-none-any.whl (98 kB)
+Collecting cycler==0.11.0 (from isaacsim-core==5.1.0.0->isaacsim[all]==5.1.0.0)
+  Downloading https://mirrors.aliyun.com/pypi/packages/5c/f9/695d6bedebd747e5eb0fe8fad57b72fdf25411273a39791cde838d5a8f51/cycler-0.11.0-py3-none-any.whl (6.4 kB)
+Collecting kiwisolver==1.4.4 (from isaacsim-core==5.1.0.0->isaacsim[all]==5.1.0.0)
+  Downloading https://mirrors.aliyun.com/pypi/packages/ac/e6/823a136cefcf0592338827f54cb73642c2ea580acd8a7d5dbf8f32437848/kiwisolver-1.4.4-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (1.4 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.4/1.4 MB 243.9 kB/s  0:00:05
+Collecting pint==0.20.1 (from isaacsim-core==5.1.0.0->isaacsim[all]==5.1.0.0)
+  Downloading https://mirrors.aliyun.com/pypi/packages/db/1b/97d8fd443d89e8d39b3aaa95aa70a184f752b68d2cc803f7fedab8dfd81f/Pint-0.20.1-py3-none-any.whl (269 kB)
+Collecting packaging==23.0 (from isaacsim-core==5.1.0.0->isaacsim[all]==5.1.0.0)
+  Downloading https://mirrors.aliyun.com/pypi/packages/ed/35/a31aed2993e398f6b09a790a181a7927eb14610ee8bbf02dc14d31677f1c/packaging-23.0-py3-none-any.whl (42 kB)
+Collecting gunicorn==23.0.0 (from isaacsim-core==5.1.0.0->isaacsim[all]==5.1.0.0)
+  Downloading https://mirrors.aliyun.com/pypi/packages/cb/7d/6dac2a6e1eba33ee43f318edbed4ff29151a49b5d37f080aad1e6469bca4/gunicorn-23.0.0-py3-none-any.whl (85 kB)
+Collecting osqp==0.6.7.post3 (from isaacsim-core==5.1.0.0->isaacsim[all]==5.1.0.0)
+  Downloading https://mirrors.aliyun.com/pypi/packages/55/72/8746c4bc488a31641091ccc50e71f92e0a4211e2ef882e00904940531962/osqp-0.6.7.post3-cp311-cp311-manylinux_2_5_x86_64.manylinux1_x86_64.manylinux_2_17_x86_64.manylinux2014_x86_64.whl (298 kB)
+Collecting qdldl==0.1.7.post5 (from isaacsim-core==5.1.0.0->isaacsim[all]==5.1.0.0)
+  Downloading https://mirrors.aliyun.com/pypi/packages/b8/7e/5fe5a081bd229a2b703a4b93e5ecaf44f51902e9b6a645c8ce4ea325ec0d/qdldl-0.1.7.post5-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (1.2 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.2/1.2 MB 199.0 kB/s  0:00:05
+Collecting tornado==6.5.1 (from isaacsim-core==5.1.0.0->isaacsim[all]==5.1.0.0)
+  Downloading https://mirrors.aliyun.com/pypi/packages/7d/f7/0c48ba992d875521ac761e6e04b0a1750f8150ae42ea26df1852d6a98942/tornado-6.5.1-cp39-abi3-manylinux_2_5_x86_64.manylinux1_x86_64.manylinux_2_17_x86_64.manylinux2014_x86_64.whl (443 kB)
+Collecting pyperclip==1.8.0 (from isaacsim-core==5.1.0.0->isaacsim[all]==5.1.0.0)
+  Downloading https://mirrors.aliyun.com/pypi/packages/f6/5b/55866e1cde0f86f5eec59dab5de8a66628cb0d53da74b8dbc15ad8dabda3/pyperclip-1.8.0.tar.gz (16 kB)
+  Installing build dependencies: started
+  Installing build dependencies: still running...
+  Installing build dependencies: finished with status 'done'
+  Getting requirements to build wheel: started
+  Getting requirements to build wheel: finished with status 'done'
+  Preparing metadata (pyproject.toml): started
+  Preparing metadata (pyproject.toml): finished with status 'done'
+Collecting python-dateutil==2.9.0.post0 (from isaacsim-core==5.1.0.0->isaacsim[all]==5.1.0.0)
+  Downloading https://mirrors.aliyun.com/pypi/packages/ec/57/56b9bcc3c9c6a792fcbaf139543cee77261f3651ca9da0c93f5c1221264b/python_dateutil-2.9.0.post0-py2.py3-none-any.whl (229 kB)
+Collecting six==1.17.0 (from isaacsim-core==5.1.0.0->isaacsim[all]==5.1.0.0)
+  Downloading https://mirrors.aliyun.com/pypi/packages/b7/ce/149a00dd41f10bc29e5921b496af8b574d8413afcd5e30dfa0ed46c2cc5e/six-1.17.0-py2.py3-none-any.whl (11 kB)
+Collecting imageio==2.37.0 (from isaacsim-core==5.1.0.0->isaacsim[all]==5.1.0.0)
+  Downloading https://mirrors.aliyun.com/pypi/packages/cb/bd/b394387b598ed84d8d0fa90611a90bee0adc2021820ad5729f7ced74a8e2/imageio-2.37.0-py3-none-any.whl (315 kB)
+Collecting scipy==1.15.3 (from isaacsim-core==5.1.0.0->isaacsim[all]==5.1.0.0)
+  Downloading https://mirrors.aliyun.com/pypi/packages/bd/37/89f19c8c05505d0601ed5650156e50eb881ae3918786c8fd7262b4ee66d3/scipy-1.15.3-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (37.7 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 37.7/37.7 MB 192.3 kB/s  0:02:13
+Collecting pyyaml==6.0.2 (from isaacsim-core==5.1.0.0->isaacsim[all]==5.1.0.0)
+  Downloading https://mirrors.aliyun.com/pypi/packages/75/e4/2c27590dfc9992f73aabbeb9241ae20220bd9452df27483b6e56d3975cc5/PyYAML-6.0.2-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (762 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 763.0/763.0 kB 168.9 kB/s  0:00:03
+Collecting opencv-python-headless==4.11.0.86 (from isaacsim-core==5.1.0.0->isaacsim[all]==5.1.0.0)
+  Downloading https://mirrors.aliyun.com/pypi/packages/dd/5c/c139a7876099916879609372bfa513b7f1257f7f1a908b0bdc1c2328241b/opencv_python_headless-4.11.0.86-cp37-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (50.0 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 50.0/50.0 MB 280.4 kB/s  0:02:47
+Collecting trimesh==4.5.1 (from isaacsim-core==5.1.0.0->isaacsim[all]==5.1.0.0)
+  Downloading https://mirrors.aliyun.com/pypi/packages/a7/45/a0d1b0474f280b5191ce6be739533514c9fe4a0315aed75ed58741d536c7/trimesh-4.5.1-py3-none-any.whl (703 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 703.7/703.7 kB 216.6 kB/s  0:00:02
+Collecting rtree==1.3.0 (from isaacsim-core==5.1.0.0->isaacsim[all]==5.1.0.0)
+  Downloading https://mirrors.aliyun.com/pypi/packages/70/db/6c8bc20061572c33766ade296071d0127e7365d4d3ff54a6c2c075de637b/Rtree-1.3.0-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (543 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 543.2/543.2 kB 287.2 kB/s  0:00:03
+Collecting aioboto3==15.1.0 (from isaacsim-core==5.1.0.0->isaacsim[all]==5.1.0.0)
+  Downloading https://mirrors.aliyun.com/pypi/packages/93/b0/28e3ac89e7119b1cb4e6830664060b96a2b5761291e92a10fb3044b5a11d/aioboto3-15.1.0-py3-none-any.whl (35 kB)
+Collecting aiobotocore==2.24.0 (from isaacsim-core==5.1.0.0->isaacsim[all]==5.1.0.0)
+  Downloading https://mirrors.aliyun.com/pypi/packages/e2/68/b29577197aa2e54b50d6f214524790cc1cb27d289585ad7c7bdfe5125285/aiobotocore-2.24.0-py3-none-any.whl (84 kB)
+Collecting boto3==1.39.11 (from isaacsim-core==5.1.0.0->isaacsim[all]==5.1.0.0)
+  Downloading https://mirrors.aliyun.com/pypi/packages/72/66/88566a6484e746c0b075f7c9bb248e8548eda0a486de4460d150a41e2d57/boto3-1.39.11-py3-none-any.whl (139 kB)
+Collecting botocore==1.39.11 (from isaacsim-core==5.1.0.0->isaacsim[all]==5.1.0.0)
+  Downloading https://mirrors.aliyun.com/pypi/packages/1c/2c/8a0b02d60a1dbbae7faa5af30484b016aa3023f9833dfc0d19b0b770dd6a/botocore-1.39.11-py3-none-any.whl (13.9 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 13.9/13.9 MB 229.1 kB/s  0:00:55
+Collecting awscrt==0.23.8 (from isaacsim-core==5.1.0.0->isaacsim[all]==5.1.0.0)
+  Downloading https://mirrors.aliyun.com/pypi/packages/b0/7f/bd932351214640033c5b58ba1ab5682842f2643f686a58b7362f77fb598d/awscrt-0.23.8-cp311-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (8.7 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 8.7/8.7 MB 259.2 kB/s  0:00:33
+Collecting s3transfer==0.13.1 (from isaacsim-core==5.1.0.0->isaacsim[all]==5.1.0.0)
+  Downloading https://mirrors.aliyun.com/pypi/packages/6d/4f/d073e09df851cfa251ef7840007d04db3293a0482ce607d2b993926089be/s3transfer-0.13.1-py3-none-any.whl (85 kB)
+Collecting azure-storage-blob==12.17.0 (from isaacsim-core==5.1.0.0->isaacsim[all]==5.1.0.0)
+  Downloading https://mirrors.aliyun.com/pypi/packages/f1/06/68c50a905e1e5481b04a6166b69fecddb87681aae7a556ab727f8e8e6f70/azure_storage_blob-12.17.0-py3-none-any.whl (388 kB)
+Collecting azure-identity==1.13.0 (from isaacsim-core==5.1.0.0->isaacsim[all]==5.1.0.0)
+  Downloading https://mirrors.aliyun.com/pypi/packages/33/16/fa96a5e057d6842e95d94fc410896e061b3d3a2584d57e13fc58268df45f/azure_identity-1.13.0-py3-none-any.whl (151 kB)
+Collecting oauthlib==3.2.2 (from isaacsim-core==5.1.0.0->isaacsim[all]==5.1.0.0)
+  Downloading https://mirrors.aliyun.com/pypi/packages/7e/80/cab10959dc1faead58dc8384a781dfbf93cb4d33d50988f7a69f1b7c9bbe/oauthlib-3.2.2-py3-none-any.whl (151 kB)
+Collecting requests-oauthlib==1.3.1 (from isaacsim-core==5.1.0.0->isaacsim[all]==5.1.0.0)
+  Downloading https://mirrors.aliyun.com/pypi/packages/6f/bb/5deac77a9af870143c684ab46a7934038a53eb4aa975bc0687ed6ca2c610/requests_oauthlib-1.3.1-py2.py3-none-any.whl (23 kB)
+Collecting isodate==0.6.1 (from isaacsim-core==5.1.0.0->isaacsim[all]==5.1.0.0)
+  Downloading https://mirrors.aliyun.com/pypi/packages/b6/85/7882d311924cbcfc70b1890780763e36ff0b140c7e51c110fc59a532f087/isodate-0.6.1-py2.py3-none-any.whl (41 kB)
+Collecting cryptography==44.0.0 (from isaacsim-core==5.1.0.0->isaacsim[all]==5.1.0.0)
+  Downloading https://mirrors.aliyun.com/pypi/packages/ef/82/72403624f197af0db6bac4e58153bc9ac0e6020e57234115db9596eee85d/cryptography-44.0.0-cp39-abi3-manylinux_2_28_x86_64.whl (4.2 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 4.2/4.2 MB 181.7 kB/s  0:00:22
+Collecting azure-core==1.28.0 (from isaacsim-core==5.1.0.0->isaacsim[all]==5.1.0.0)
+  Downloading https://mirrors.aliyun.com/pypi/packages/c3/0a/32b17d776a6bf5ddaa9dbad0e88de9d28a55bec1d37b8d408cc7d2e5e28d/azure_core-1.28.0-py3-none-any.whl (185 kB)
+Collecting msal==1.27.0 (from isaacsim-core==5.1.0.0->isaacsim[all]==5.1.0.0)
+  Downloading https://mirrors.aliyun.com/pypi/packages/c0/a3/46ebb1d55aa65c1983f0b96739c84957fbb5be3c55ce34ecbab69afd4242/msal-1.27.0-py2.py3-none-any.whl (101 kB)
+Collecting msal-extensions==1.0.0 (from isaacsim-core==5.1.0.0->isaacsim[all]==5.1.0.0)
+  Downloading https://mirrors.aliyun.com/pypi/packages/52/34/a8995d6f0fa626ff6b28dbd9c90f6c2a46bd484bc7ab343d078b0c6ff1a7/msal_extensions-1.0.0-py2.py3-none-any.whl (19 kB)
+Collecting portalocker==2.7.0 (from isaacsim-core==5.1.0.0->isaacsim[all]==5.1.0.0)
+  Downloading https://mirrors.aliyun.com/pypi/packages/8c/df/d4f711d168524f5aebd7fb30969eaa31e3048cf8979688cde3b08f6e5eb8/portalocker-2.7.0-py2.py3-none-any.whl (15 kB)
+Collecting jmespath==1.0.1 (from isaacsim-core==5.1.0.0->isaacsim[all]==5.1.0.0)
+  Downloading https://mirrors.aliyun.com/pypi/packages/31/b4/b9b800c45527aadd64d5b442f9b932b00648617eb5d63d2c7a6587b7cafc/jmespath-1.0.1-py3-none-any.whl (20 kB)

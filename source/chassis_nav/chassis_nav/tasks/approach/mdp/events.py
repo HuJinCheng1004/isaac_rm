@@ -98,6 +98,15 @@ class ResetRobotTargetInView(ManagerTermBase):
         self._margin_v = float(p.get("margin_v", 0.7))      # 垂直视野裕度 (|v0| 上界)
         self._z_floor = float(p.get("z_floor", 0.1))        # 目标中心最低离地高度 [m]（防止穿地）
 
+        # --- 课程支持 ---
+        # 记录"满难度"上界；课程项（mdp.approach_difficulty）会随训练把激活的
+        # ``self._yaw_range`` / ``self._d_max`` 从更易的初值线性退火到这些满值。
+        # 未启用课程时这两个激活值保持满难度（即下面的配置值），行为不变。
+        # 按既有 ``env._chassis_*`` 缓存约定，把本实例挂到 env 上供课程项访问。
+        self._yaw_full = float(self._yaw_range[1])
+        self._d_full = self._d_max
+        env._reset_in_view_term = self
+
     def __call__(
         self,
         env: "ManagerBasedEnv",

@@ -44,21 +44,22 @@ def centering(env: "ManagerBasedRLEnv", k: float = 2.0) -> torch.Tensor:
 
 
 def approach(env: "ManagerBasedRLEnv", d_target: float = 0.4, near_penalty: float = 4.0) -> torch.Tensor:
-    """靠近塑形：越接近 ``d_target`` 奖励越高；一旦近于 ``d_target`` 则转为惩罚。
+    """靠近塑形：在 ``d_target`` 处取得正向峰值（+1）；过近则转为惩罚。
 
     ``distance`` 是目标 3D 中心到相机原点的米制距离（run_realtime 的
-    ``Box3D.distance``）。
+    ``Box3D.distance``）。原先远端为纯负值（最高仅趋于 0），缺乏"靠近"的正向
+    动机，导致策略宁可保持距离也不冒丢失视野的失败风险。改为单峰正向塑形：
 
-    * ``distance >= d_target``：奖励 = ``-(distance - d_target)``，随接近 ``d_target``
-      单调升高（趋于 0），驱动底盘靠近目标。
-    * ``distance <  d_target``：奖励 = ``-near_penalty * (d_target - distance)``，越靠近
-      负惩罚越深，防止底盘撞上目标——替代已移除的硬碰撞终止。
+    * ``distance >= d_target``：奖励 = ``exp(-(distance - d_target))`` ∈ (0, 1]，
+      随接近 ``d_target`` 单调升高至 +1，给出明确的"靠近"正梯度。
+    * ``distance <  d_target``：奖励 = ``1 - near_penalty * (d_target - distance)``，
+      越靠近负惩罚越深，防止底盘撞上目标——替代已移除的硬碰撞终止。
 
-    在 ``d_target`` 处连续（两段均为 0）。不再按可见性门控。
+    在 ``d_target`` 处连续（两段均为 +1）。不再按可见性门控。
     """
     s = get_bbox3d_state(env)
     over = s.distance - d_target
-    far = -over.clamp(min=0.0)              # 远端：越近越高（<=0，趋于 0）
+    far = torch.exp(-over.clamp(min=0.0))   # 远端：越近越高（(0,1]，趋于 +1）
     near = (-over).clamp(min=0.0)           # 近端：d_target - distance（>=0）
     return far - near_penalty * near
 

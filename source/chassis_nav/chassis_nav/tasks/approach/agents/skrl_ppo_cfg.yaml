@@ -14,7 +14,7 @@ models:
     clip_log_std: True
     min_log_std: -20.0
     max_log_std: 2.0
-    initial_log_std: -0.6931471805599453   # ln(0.5)
+    initial_log_std: -0.2231435513142097   # ln(0.8) —— 由 ln(0.5) 提高初始探索
     network:
       - name: net
         input: OBSERVATIONS
@@ -49,7 +49,7 @@ agent:
   learning_rate: 1.0e-03
   learning_rate_scheduler: KLAdaptiveLR
   learning_rate_scheduler_kwargs:
-    kl_threshold: 0.01
+    kl_threshold: 0.016   # 由 0.01 放宽，减缓 KL 自适应对学习率的早期衰减
   state_preprocessor: RunningStandardScaler
   state_preprocessor_kwargs: null
   value_preprocessor: RunningStandardScaler
@@ -60,7 +60,7 @@ agent:
   ratio_clip: 0.2
   value_clip: 0.2
   clip_predicted_values: True
-  entropy_loss_scale: 0.005
+  entropy_loss_scale: 0.01   # 由 0.005 提高，抑制策略标准差过早塌缩（探索枯竭）
   value_loss_scale: 1.0
   kl_threshold: 0.0
   rewards_shaper_scale: 1.0
@@ -79,5 +79,5 @@ agent:
 # Trainer.
 trainer:
   class: SequentialTrainer
-  timesteps: 24000
+  timesteps: 60000   # 由 24000 提高（旧 run 早早收敛到坏局部最优，需更多步配合课程）
   environment_info: log
