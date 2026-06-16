@@ -155,6 +155,8 @@ class ActionsCfg:
         # 升降杆行程与 reset 放置/几何一致（满行程，相机最高 ≈ 1.6 m）：策略需边靠近边
         # 降低相机以在 26° 下倾 FOV 内保持低目标居中。
         lift_range=(0.0, 1.0),
+        # 临时：定位 PhysX CUDA error 719 的发散源。命中后会打印上下文并抛错。
+        diagnose_divergence=True,
     )
 
 

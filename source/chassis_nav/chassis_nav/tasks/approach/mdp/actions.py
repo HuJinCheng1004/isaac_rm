@@ -118,6 +118,13 @@ class DifferentialDriveAction(ActionTerm):
         )
 
     def apply_actions(self):
+        # --- 一次性发散诊断（定位 PhysX CUDA error 719 的 NaN/inf 源）---
+        # 每物理子步开头先体检：root 位姿/速度、关节位置/速度是否已含 NaN/inf。
+        # 第一次发现就打印完整上下文（哪个量、哪个环境、当时的动作/目标），然后退出，
+        # 避免污染状态被写回 sim 触发内核崩溃。定位完根因后删除本块。
+        if self.cfg.diagnose_divergence:
+            self._check_divergence()
+
         v = self._processed_actions[:, 0]
         w = self._processed_actions[:, 1]
         v_left = v - w * self._half_base
@@ -131,6 +138,46 @@ class DifferentialDriveAction(ActionTerm):
         # 防止高重心上身在急转/加速时把底盘掀翻或来回摇晃。
         if self.cfg.planar_lock:
             self._lock_to_plane()
+
+    def _check_divergence(self):
+        """体检 articulation 状态：第一次发现 NaN/inf 时打印完整上下文并停止仿真。"""
+        if getattr(self, "_diag_fired", False):
+            return
+        data = self._asset.data
+        checks = {
+            "root_pos_w": data.root_pos_w,
+            "root_quat_w": data.root_quat_w,
+            "root_lin_vel_w": data.root_lin_vel_w,
+            "root_ang_vel_w": data.root_ang_vel_w,
+            "joint_pos": data.joint_pos,
+            "joint_vel": data.joint_vel,
+        }
+        for name, t in checks.items():
+            bad = ~torch.isfinite(t)
+            if not bool(bad.any()):
+                continue
+            self._diag_fired = True
+            env_mask = bad.view(bad.shape[0], -1).any(dim=-1)
+            bad_envs = torch.nonzero(env_mask, as_tuple=False).flatten()
+            e = int(bad_envs[0].item())
+            torch.set_printoptions(precision=4, sci_mode=False)
+            print("\n" + "=" * 70, flush=True)
+            print(f"[DIVERGENCE] 首个非有限值出现在 '{name}'", flush=True)
+            print(f"  受影响环境数: {int(env_mask.sum().item())} / {data.root_pos_w.shape[0]}", flush=True)
+            print(f"  首个坏环境 idx = {e}", flush=True)
+            print("  --- 该环境此刻的完整状态 ---", flush=True)
+            for n2, t2 in checks.items():
+                print(f"    {n2:16s}: {t2[e].detach().cpu()}", flush=True)
+            print("  --- 该环境的动作/目标 ---", flush=True)
+            print(f"    raw_action      : {self._raw_actions[e].detach().cpu()}", flush=True)
+            print(f"    processed(v,w,lv): {self._processed_actions[e].detach().cpu()}", flush=True)
+            print(f"    wheel_vel_target : {self._wheel_vel_target[e].detach().cpu()}", flush=True)
+            print(f"    lift_target      : {float(self._lift_target[e]):.4f}", flush=True)
+            print("=" * 70 + "\n", flush=True)
+            raise RuntimeError(
+                f"发散诊断命中：'{name}' 出现 NaN/inf（env {e}）。"
+                f"上方为触发前的完整上下文。修复后将 diagnose_divergence 设回 False。"
+            )
 
     def _lock_to_plane(self):
         """把底盘根姿态投影到 SE(2)：仅保留偏航，归零横滚/俯仰及其角速度。
@@ -190,3 +237,7 @@ class DifferentialDriveActionCfg(ActionTermCfg):
 
     planar_lock: bool = True
     """每个物理子步把底盘约束在 xy 平面（清除横滚/俯仰），防止高重心上身倾倒。"""
+
+    diagnose_divergence: bool = False
+    """临时诊断：每物理子步体检 root/关节状态，第一次出现 NaN/inf 时打印上下文并停止。
+    定位 PhysX CUDA error 719 的发散源用；定位完成后设回 False（或删除诊断代码）。"""
