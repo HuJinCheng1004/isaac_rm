@@ -128,18 +128,31 @@ CHASSIS_CFG = ArticulationCfg(
             damping=0.0,
             effort_limit_sim=0.0,
         ),
-        # 基础以上的所有内容都在其默认姿态被严格保持。
+        # 升降杆：位置控制（动作第 3 维驱动）。单独一组，保留较高刚度以跟踪指令，
+        # 但限速/限力，避免数值刚性正反馈。
+        "lift": ImplicitActuatorCfg(
+            joint_names_expr=["platform_joint"],
+            stiffness=800.0,
+            damping=80.0,
+            effort_limit_sim=400.0,
+            velocity_limit_sim=2.0,
+        ),
+        # 基础以上的其余关节（头部/双臂/夹子）保持在默认姿态。
+        # 由 stiffness=2000/effort=1000 下调：手臂末端等小惯量关节在 100 Hz dt 下，
+        # 过高的 stiffness/质量比形成数值刚性正反馈（位置偏->巨大恢复力->速度冲过头->
+        # 偏更多），几步内把 joint_vel 冲到 1e14、joint_pos 冲到 1e9（实测发散源）。
+        # 降刚度 + 限速度 + 限力矩，把执行器约束在数值稳定区间。
         "upper_body": ImplicitActuatorCfg(
             joint_names_expr=[
-                "platform_joint",
                 "head_joint.*",
                 "l_joint.*",
                 "r_joint.*",
                 ".*_Joint_finger.*",
             ],
-            stiffness=2000.0,
-            damping=100.0,
-            effort_limit_sim=1000.0,
+            stiffness=300.0,
+            damping=30.0,
+            effort_limit_sim=100.0,
+            velocity_limit_sim=5.0,
         ),
     },
 )

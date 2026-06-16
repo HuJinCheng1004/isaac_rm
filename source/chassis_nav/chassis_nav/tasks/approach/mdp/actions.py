@@ -188,12 +188,19 @@ class DifferentialDriveAction(ActionTerm):
         data = self._asset.data
         # 姿态：丢弃横滚/俯仰，只留偏航（位置原样保留，含自然落地高度）。
         upright = math_utils.yaw_quat(data.root_quat_w)
-        self._asset.write_root_pose_to_sim(torch.cat([data.root_pos_w, upright], dim=-1))
+        pose = torch.cat([data.root_pos_w, upright], dim=-1)
         # 速度：清零横滚/俯仰角速度（线速度与偏航角速度保留）。
         lin = data.root_lin_vel_w
         ang = data.root_ang_vel_w.clone()
         ang[:, 0:2] = 0.0
-        self._asset.write_root_velocity_to_sim(torch.cat([lin, ang], dim=-1))
+        vel = torch.cat([lin, ang], dim=-1)
+        # 兜底：绝不把 NaN/inf 写回 sim（污染位姿/速度会让 PhysX 求解器在下一子步
+        # 触发 CUDA 内核非法访问 -> error 719 硬崩）。残余发散时用上一帧的有限值替代，
+        # 让该环境在下次 reset 前优雅降级而非整个仿真崩溃。
+        pose = torch.nan_to_num(pose, nan=0.0, posinf=0.0, neginf=0.0)
+        vel = torch.nan_to_num(vel, nan=0.0, posinf=0.0, neginf=0.0)
+        self._asset.write_root_pose_to_sim(pose)
+        self._asset.write_root_velocity_to_sim(vel)
 
     def reset(self, env_ids: Sequence[int] | None = None) -> None:
         # 把升降杆位置目标同步到重置事件刚设定的实际高度（事件重置先于动作重置执行），
