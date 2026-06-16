@@ -1,4 +1,7 @@
 # chassis_nav — 底盘导航 RL 训练流水线 (Isaac Lab 2.3.2 + Isaac Sim 5.1 + skrl PPO)
+# git add .gitignore
+# git commit -m "chore: 不再跟踪训练产物 logs/outputs/wandb"
+
 
 一个**无渲染、基于抽象 BBox 特征**的差速底盘"靠近并对准目标"导航 RL 任务。
 策略只看 ~10 维抽象特征（不输入图像），因此可以在单卡上开 4096 个并行环境

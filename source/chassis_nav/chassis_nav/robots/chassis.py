@@ -82,8 +82,10 @@ CHASSIS_CFG = ArticulationCfg(
         ),
         rigid_props=sim_utils.RigidBodyPropertiesCfg(
             disable_gravity=False,
-            max_linear_velocity=10.0,
-            max_angular_velocity=100.0,
+            # 由 10/100 下调：100 rad/s 的角速度上限会放任偶发接触尖峰把刚体甩飞，
+            # 产生 inf 速度污染观测/网络（NaN 崩溃链路）。差速底盘正常工作量级远低于此。
+            max_linear_velocity=5.0,
+            max_angular_velocity=20.0,
             enable_gyroscopic_forces=True,
         ),
         articulation_props=sim_utils.ArticulationRootPropertiesCfg(

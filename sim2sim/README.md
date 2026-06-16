@@ -30,12 +30,27 @@ conda run -n realman python sim2sim/build_scene.py
 # 2) 打开 viewer 实时回放（默认无限回合，关窗即停）
 conda run -n realman python sim2sim/play_mujoco.py
 
-# 全速 / 指定回合 / 指定随机种子
-conda run -n realman python sim2sim/play_mujoco.py --fast --episodes 5 --seed 7
+# 指定模型 checkpoint（默认自动取最新训练结果）
+conda run -n realman python sim2sim/play_mujoco.py \
+    --ckpt logs/skrl/chassis_approach/2026-06-12_20-16-11_ppo_torch/checkpoints/best_agent.pt
+
+# 全速 / 指定回合 / 指定随机种子 / 指定模型
+conda run -n realman python sim2sim/play_mujoco.py --fast --episodes 5 --seed 7 \
+    --ckpt logs/skrl/chassis_approach/<run_id>/checkpoints/best_agent.pt
 
 # 无窗口跑统计（服务器/无显示）
 conda run -n realman python sim2sim/play_mujoco.py --headless --episodes 50
 ```
+
+### 命令行参数
+
+| 参数 | 默认值 | 说明 |
+|------|--------|------|
+| `--ckpt PATH` | `logs/skrl/.../best_agent.pt` | 策略 checkpoint 路径，支持任意训练结果 |
+| `--episodes N` | `0`（viewer 下无限） | 跑几个回合后退出 |
+| `--seed N` | `0` | 随机种子（影响初始位姿采样） |
+| `--fast` | 关 | viewer 下全速回放（默认 10 Hz 实时） |
+| `--headless` | 关 | 无窗口模式，只打印统计，适合服务器 |
 
 无显示环境想出图，用 `MUJOCO_GL=egl` + `mujoco.Renderer` 离屏渲染（见 git 历史里的
 检查脚本）。

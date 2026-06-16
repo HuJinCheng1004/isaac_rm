@@ -301,11 +301,17 @@ class BBox3DObservation(ManagerTermBase):
 
 
 def chassis_velocity(env: "ManagerBasedEnv", asset_cfg: SceneEntityCfg = SceneEntityCfg("robot")) -> torch.Tensor:
-    """本体感觉：基框架中的前向线速度和偏航速率，形状 (N, 2)。"""
+    """本体感觉：基框架中的前向线速度和偏航速率，形状 (N, 2)。
+
+    NaN/Inf 兜底 + 裁剪：若某环境物理求解器爆炸，``root_*_vel_b`` 可能变成 inf；
+    本体感知不像 bbox 那样有兜底，inf 经 RunningStandardScaler 会把整个 PPO 更新
+    污染成 NaN（旧 run 在 ~step45k 整网变 NaN 的根因）。这里清洗并裁到物理量级。
+    """
     asset = env.scene[asset_cfg.name]
     v_fwd = _to_torch(asset.data.root_lin_vel_b)[:, 0:1]
     w_yaw = _to_torch(asset.data.root_ang_vel_b)[:, 2:3]
-    return torch.cat([v_fwd, w_yaw], dim=-1)
+    out = torch.cat([v_fwd, w_yaw], dim=-1)
+    return torch.nan_to_num(out, nan=0.0, posinf=0.0, neginf=0.0).clamp(-10.0, 10.0)
 
 
 def lift_height(
@@ -316,6 +322,9 @@ def lift_height(
 
     策略用第 3 维动作控制升降杆来调节相机高度（从而调节目标在画面中的纵向位置，
     即 3D 中心的 y/距离），因此把当前高度暴露给策略以便闭环。
+
+    同样做 NaN/Inf 兜底 + 裁剪（行程 0~1，留余量裁到 [-1, 2]），避免物理爆炸时污染网络。
     """
     asset = env.scene[asset_cfg.name]
-    return _to_torch(asset.data.joint_pos)[:, asset_cfg.joint_ids]
+    out = _to_torch(asset.data.joint_pos)[:, asset_cfg.joint_ids]
+    return torch.nan_to_num(out, nan=0.0, posinf=0.0, neginf=0.0).clamp(-1.0, 2.0)

@@ -30,16 +30,19 @@ def approach_difficulty(
     env: "ManagerBasedRLEnv",
     env_ids: Sequence[int],
     num_steps: float,
-    yaw_start: float = 0.6,
-    d_max_start: float = 1.6,
+    yaw_start: float = 0.4,
+    height_start: tuple = (0.6, 1.0),
 ) -> float:
     """线性退火重置难度，返回进度 ``p`` 供日志。
+
+    早期：目标基本在正前方（窄偏航）、高度集中在相机舒适带（易居中+靠近）-> 制造
+    成功经验；``num_steps`` 步后退火到满难度（全向偏航 + 完整高度区间）。
 
     Args:
         num_steps: 退火到满难度所需的训练步数（与 ``trainer.timesteps`` 同单位，即
             ``env.common_step_counter``）。
         yaw_start: 初始偏航半幅 [rad]，退火到 ``term._yaw_full``。
-        d_max_start: 初始目标深度上限 [m]，退火到 ``term._d_full``。
+        height_start: 初始目标高度区间 [m]，退火到 ``term._height_full``。
     """
     term = getattr(env, "_reset_in_view_term", None)
     if term is None:
@@ -49,6 +52,9 @@ def approach_difficulty(
 
     yaw_half = yaw_start + p * (term._yaw_full - yaw_start)
     term._yaw_range = (-yaw_half, yaw_half)
-    term._d_max = d_max_start + p * (term._d_full - d_max_start)
+
+    h_lo = height_start[0] + p * (term._height_full[0] - height_start[0])
+    h_hi = height_start[1] + p * (term._height_full[1] - height_start[1])
+    term._height_range = (h_lo, h_hi)
 
     return p

@@ -20,22 +20,22 @@
 ``set_joint_position_target`` 把目标位置设到新采样值，否则执行器会在几个
 物理步内把它拉回默认高度。
 
-目标是**悬浮在 3D 空间**的（关闭重力），可出现在相机视锥内任意位置，而不再
-贴地。
+目标是**悬浮在 3D 空间**的（关闭重力），出现在用户指定的世界高度区间内
+（默认 0.4~1.6 m），而不再贴地或被推到远处。
 
-**视野保证的原理。** 先写入机器人的新根姿态与升降杆高度，再读取
-``body_pos_w`` —— 该属性会触发一次前向运动学更新，于是返回的相机世界位姿
-已经反映了刚写入的新构型。随后我们直接在相机视锥内采样目标：
+**放置原理（以高度为第一性变量）。** 旧实现沿 26° 下倾视线采样“前向深度 d”，
+导致大 d 时目标被推到地面附近 —— 那里“居中且距离 d_target”的成功区在几何上
+不可达（是旧 run 0% 成功率的主因之一）。新实现改为**直接采样目标世界高度**：
 
-1. 在画面裕度内均匀采样图像坐标 ``(u0, v0) ∈ [-margin_h, margin_h] ×
-   [-margin_v, margin_v]``（左右/上下位置随机）；
-2. 在 ``[d_min, d_max]`` 内采样前向深度 ``d``（决定 bbox 大小，越近越大）；
-3. 用*真实*相机四元数把视线变换到世界系，目标点 = ``cam_pos + d · dir``。
-   由于视线的前向分量恒为 1，该点的相机前向深度即 ``d``，投影恒等于
-   ``(u0, v0)`` —— 故只要 ``(u0, v0)`` 在裕度内，目标中心必然落在画面内。
+1. 采样目标世界高度 ``z_t ∈ height_range``（夹到相机能俯视看到的上限）；
+2. 采样相机余量 ``Δ ∈ delta_range``，令相机位于目标上方 ``Δ`` 处，反推升降杆
+   高度并写入（相机高度 = ``cam0 + lift``，``cam0`` 由前向运动学探测一次后缓存）；
+3. 读取*真实*相机位姿，在画面裕度内采样 ``(u0, v0)`` 得到视线方向，再解深度 ``d``
+   使目标精确落在世界高度 ``z_t``：``cam_z + d·dir_z = z_t``。由于相机在目标上方
+   （``dir_z < 0``）必有 ``d > 0``，且投影恒等于 ``(u0, v0)`` —— 故目标既精确处于
+   指定高度，又必然落在画面内、且初始就处于“成功区可达”的几何配置。
 
-朝下的视线会限制 ``d`` 上限以避免目标穿到地面以下（``z ≥ z_floor``）。目标
-朝向随机取全 3D 欧拉角。对任意升降杆高度/底盘朝向，上述保证均成立。
+目标朝向随机取全 3D 欧拉角。对任意底盘朝向，上述保证均成立。
 """
 
 from __future__ import annotations
@@ -76,7 +76,13 @@ class ResetRobotTargetInView(ManagerTermBase):
         # --- 随机化范围 ---
         self._yaw_range = tuple(p.get("yaw_range", (-math.pi, math.pi)))
         self._xy_jitter = float(p.get("xy_jitter", 0.2))
-        self._lift_range = tuple(p.get("lift_range", (0.2, 0.5)))
+        # 目标中心**世界高度**范围 [m]（地面 z=0）。这是放置目标的第一性变量：
+        # 直接采样高度（而非沿 26° 下倾视线采样深度），避免目标被推到远处/地面附近导致
+        # “居中且距离 d_target”的成功区在几何上不可达（旧实现 0% 成功率的主因之一）。
+        self._height_range = tuple(p.get("height_range", (0.4, 1.6)))
+        # 相机抬到目标上方的余量 Δ [m]：26° 下倾相机必须**位于目标上方**才能在 FOV 内
+        # 看到它；Δ 同时决定初始俯视角与初始距离（d ≈ Δ/|dir_z| ≈ 0.6~2.5 m）。
+        self._delta_range = tuple(p.get("delta_range", (0.35, 0.75)))
 
         # --- 相机针孔模型（必须与 BBox3DObservation 完全一致，含 26° 下倾光轴） ---
         hfov = float(p.get("hfov", 1.204))
@@ -91,20 +97,20 @@ class ResetRobotTargetInView(ManagerTermBase):
         self._right = torch.tensor(axes["right"], dtype=torch.float32, device=self.device)
         self._up = torch.tensor(axes["up"], dtype=torch.float32, device=self.device)
 
-        # --- 目标放置参数（相机视锥内 3D 采样） ---
-        d_range = tuple(p.get("d_range", (1.2, 4.0)))       # 相机前向深度范围 [m]（决定 bbox 大小）
-        self._d_min, self._d_max = float(d_range[0]), float(d_range[1])
-        self._margin_h = float(p.get("margin_h", 0.8))      # 水平视野裕度 (|u0| 上界)
-        self._margin_v = float(p.get("margin_v", 0.7))      # 垂直视野裕度 (|v0| 上界)
-        self._z_floor = float(p.get("z_floor", 0.1))        # 目标中心最低离地高度 [m]（防止穿地）
+        # --- 目标放置参数 ---
+        self._margin_h = float(p.get("margin_h", 0.5))      # 水平视野裕度 (|u0| 上界)
+        self._margin_v = float(p.get("margin_v", 0.4))      # 垂直视野裕度 (|v0| 上界)
+        self._lift_limits = tuple(p.get("lift_limits", (0.0, 1.0)))  # platform_joint 行程 [m]
+        # 初始可见所需的“相机高于目标”的最小余量 [m]（低于它目标落在下倾 FOV 之上、看不到）
+        self._frame_margin = float(p.get("frame_margin", 0.15))
+        # lift=0 时相机世界高度（cam_z = _cam0 + lift）。首次 reset 由前向运动学探测后缓存。
+        self._cam0: float | None = None
 
         # --- 课程支持 ---
-        # 记录"满难度"上界；课程项（mdp.approach_difficulty）会随训练把激活的
-        # ``self._yaw_range`` / ``self._d_max`` 从更易的初值线性退火到这些满值。
-        # 未启用课程时这两个激活值保持满难度（即下面的配置值），行为不变。
-        # 按既有 ``env._chassis_*`` 缓存约定，把本实例挂到 env 上供课程项访问。
+        # 记录“满难度”范围；课程项（mdp.approach_difficulty）会随训练把激活的
+        # ``self._yaw_range`` / ``self._height_range`` 从更易的初值线性退火到这些满值。
         self._yaw_full = float(self._yaw_range[1])
-        self._d_full = self._d_max
+        self._height_full = tuple(self._height_range)
         env._reset_in_view_term = self
 
     def __call__(
@@ -117,14 +123,15 @@ class ResetRobotTargetInView(ManagerTermBase):
         lift_joint: str = "platform_joint",
         yaw_range: tuple = (-math.pi, math.pi),
         xy_jitter: float = 0.2,
-        lift_range: tuple = (0.2, 0.5),
+        height_range: tuple = (0.4, 1.6),
+        delta_range: tuple = (0.35, 0.75),
         hfov: float = 1.204,
         vfov: float = 0.75,
         camera_axes: dict | None = None,
-        d_range: tuple = (1.2, 4.0),
-        margin_h: float = 0.8,
-        margin_v: float = 0.7,
-        z_floor: float = 0.1,
+        margin_h: float = 0.5,
+        margin_v: float = 0.4,
+        lift_limits: tuple = (0.0, 1.0),
+        frame_margin: float = 0.15,
     ) -> None:
         # 参数在 __init__ 中被消费（存到 self）；此处列出仅为 2.3.2 的签名校验。
         robot = env.scene[self.robot_name]
@@ -149,49 +156,52 @@ class ResetRobotTargetInView(ManagerTermBase):
         robot.write_root_velocity_to_sim(torch.zeros(n, 6, device=dev), env_ids=env_ids)
 
         # --------------------------------------------------------------- #
-        # 2) 升降杆高度：写入关节状态并设定位置目标（由高刚度执行器保持住）。
+        # 2) 探测 lift=0 时的相机世界高度 cam0（cam_z = cam0 + lift）。仅首次 reset。
         # --------------------------------------------------------------- #
-        lift = math_utils.sample_uniform(
-            self._lift_range[0], self._lift_range[1], (n, len(self._plat_ids)), dev
-        )
-        limits = robot.data.soft_joint_pos_limits[env_ids][:, self._plat_ids]  # (n, J, 2)
-        lift = torch.max(torch.min(lift, limits[..., 1]), limits[..., 0])
-        robot.write_joint_state_to_sim(lift, torch.zeros_like(lift), joint_ids=self._plat_ids, env_ids=env_ids)
-        robot.set_joint_position_target(lift, joint_ids=self._plat_ids, env_ids=env_ids)
+        plat = self._plat_ids
+        if self._cam0 is None:
+            zero_lift = torch.zeros(n, len(plat), device=dev)
+            robot.write_joint_state_to_sim(zero_lift, torch.zeros_like(zero_lift), joint_ids=plat, env_ids=env_ids)
+            self._cam0 = float(robot.data.body_pos_w[env_ids, self._cam_idx, 2].mean().item())
 
         # --------------------------------------------------------------- #
-        # 3) 读取新构型下的相机世界位姿（触发前向运动学更新）。
+        # 3) 采样目标世界高度 + 相机余量 Δ -> 反推升降杆高度并写入。
+        #    目标高度夹到“相机俯视可见”的上限：相机最高 = cam0 + lift_max，需高于目标
+        #    至少 frame_margin，否则目标落在 26° 下倾 FOV 之上而看不到。
+        # --------------------------------------------------------------- #
+        ground_z = env.scene.env_origins[env_ids, 2]                   # (n,) 地面高度
+        h_lo, h_hi = float(self._height_range[0]), float(self._height_range[1])
+        z_ceiling = (self._cam0 + self._lift_limits[1] - self._frame_margin) - ground_z  # 相对地面
+        z_t = math_utils.sample_uniform(h_lo, h_hi, (n,), dev)
+        z_t = torch.minimum(z_t, torch.clamp(z_ceiling, min=h_lo))     # 高目标夹到可达上限
+        cam_margin = math_utils.sample_uniform(self._delta_range[0], self._delta_range[1], (n,), dev)
+        cam_z_des = ground_z + z_t + cam_margin                        # 期望相机世界高度
+        lift = torch.clamp(cam_z_des - self._cam0, self._lift_limits[0], self._lift_limits[1])
+        lift = lift.unsqueeze(-1).expand(n, len(plat)).contiguous()
+        limits = robot.data.soft_joint_pos_limits[env_ids][:, plat]    # (n, J, 2)
+        lift = torch.max(torch.min(lift, limits[..., 1]), limits[..., 0])
+        robot.write_joint_state_to_sim(lift, torch.zeros_like(lift), joint_ids=plat, env_ids=env_ids)
+        robot.set_joint_position_target(lift, joint_ids=plat, env_ids=env_ids)
+
+        # --------------------------------------------------------------- #
+        # 4) 读最终相机位姿，在画面裕度内把目标放到**精确世界高度** z_t。
+        #    相机已位于目标上方（dir_z<0），解深度 d 使 cam_z + d*dir_z = z_world。
         # --------------------------------------------------------------- #
         cam_pos = robot.data.body_pos_w[env_ids, self._cam_idx]    # (n, 3) 世界
         cam_quat = robot.data.body_quat_w[env_ids, self._cam_idx]  # (n, 4) wxyz
-
-        # 世界系下的相机光轴基（前/右/上）。dir_local 的前向分量恒为 1，故
-        # 视线 dir = fwd + u0*tan_h*right + v0*tan_v*up 上任一点的"前向深度"= d。
         fwd_w = math_utils.quat_apply(cam_quat, self._fwd.expand(n, 3))    # (n, 3)
         right_w = math_utils.quat_apply(cam_quat, self._right.expand(n, 3))
         up_w = math_utils.quat_apply(cam_quat, self._up.expand(n, 3))
 
-        # --------------------------------------------------------------- #
-        # 4) 在相机视锥内 3D 采样目标点（投影到画面 (u0,v0) 内 -> 保证可见；
-        #    前向深度 d -> bbox 大小随机；目标随机全 3D 朝向）。
-        # --------------------------------------------------------------- #
         u0 = math_utils.sample_uniform(-self._margin_h, self._margin_h, (n,), dev)  # 左右位置
         v0 = math_utils.sample_uniform(-self._margin_v, self._margin_v, (n,), dev)  # 上下位置
-        # 视线方向（前向分量=1），目标 = cam_pos + d * dir，投影恒为 (u0, v0)。
         dir_world = fwd_w + (u0 * self._tan_h)[:, None] * right_w + (v0 * self._tan_v)[:, None] * up_w
 
-        # 朝下的视线限制最大深度，避免目标穿到地面以下 (z >= z_floor)；
-        # 然后在 [d_min, 不穿地的最大深度] 内均匀取深度，让目标沿视线散开（高度有变化），
-        # 而不是全部被压到地板上。
-        dz = dir_world[:, 2]
-        d_cap = torch.where(
-            dz < -1e-4, (cam_pos[:, 2] - self._z_floor) / (-dz), torch.full_like(dz, self._d_max)
-        )
-        d_hi = torch.minimum(torch.full_like(dz, self._d_max), d_cap)
-        d_lo = torch.minimum(torch.full_like(dz, self._d_min), d_hi)  # 极陡视线时退化为贴地
-        t = math_utils.sample_uniform(0.0, 1.0, (n,), dev)
-        d = d_lo + t * (d_hi - d_lo)                                  # 前向深度 [m]（决定 bbox 大小）
+        z_world = ground_z + z_t
+        dz = torch.clamp(dir_world[:, 2], max=-1e-2)                   # 下视分量（防除零/朝上）
+        d = ((z_world - cam_pos[:, 2]) / dz).clamp(min=0.2)            # 深度 [m]
         tgt_pos = cam_pos + d[:, None] * dir_world
+        tgt_pos[:, 2] = z_world                                        # 强制精确高度
 
         # 随机全 3D 朝向（悬浮目标，"上下左右旋转"任意）。
         rpy = math_utils.sample_uniform(-math.pi, math.pi, (n, 3), dev)
