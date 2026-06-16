@@ -14,7 +14,7 @@ models:
     clip_log_std: True
     min_log_std: -20.0
     max_log_std: 2.0
-    initial_log_std: -0.2231435513142097   # ln(0.8) —— 由 ln(0.5) 提高初始探索
+    initial_log_std: -0.6931471805599453   # ln(0.5) —— 回退（ln(0.8) 导致 std 上涨跑飞）
     network:
       - name: net
         input: OBSERVATIONS
@@ -46,10 +46,12 @@ agent:
   mini_batches: 4
   discount_factor: 0.99
   lambda: 0.95
-  learning_rate: 1.0e-03
+  learning_rate: 3.0e-04   # 由 1e-3 降低：旧 run LR 经 KLAdaptive 爬到 ~1e-2 后在 step7200 发散成 NaN
   learning_rate_scheduler: KLAdaptiveLR
   learning_rate_scheduler_kwargs:
-    kl_threshold: 0.016   # 由 0.01 放宽，减缓 KL 自适应对学习率的早期衰减
+    kl_threshold: 0.01    # 回到 0.008~0.01（旧 0.016 放任 LR 一路爬到 max_lr）
+    max_lr: 1.0e-03       # 硬上限：KLAdaptiveLR 默认 max_lr=0.01 是发散根源，钳到 1e-3
+    min_lr: 1.0e-05
   state_preprocessor: RunningStandardScaler
   state_preprocessor_kwargs: null
   value_preprocessor: RunningStandardScaler
@@ -60,7 +62,7 @@ agent:
   ratio_clip: 0.2
   value_clip: 0.2
   clip_predicted_values: True
-  entropy_loss_scale: 0.01   # 由 0.005 提高，抑制策略标准差过早塌缩（探索枯竭）
+  entropy_loss_scale: 0.005   # 由 0.01 回退：配合 ln(0.8) 初值导致 std 不降反升、探索失控
   value_loss_scale: 1.0
   kl_threshold: 0.0
   rewards_shaper_scale: 1.0

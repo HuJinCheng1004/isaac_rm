@@ -1,0 +1,49 @@
+>> 启动 Isaac Sim (headless)...
+[INFO][AppLauncher]: Using device: cuda:0
+[INFO][AppLauncher]: Loading experience file: /home/hjc/IsaacLab/apps/isaaclab.python.headless.kit
+>> AppLauncher OK
+>> from pxr import Usd OK  (USD 绑定可用)
+>> import isaaclab_tasks OK
+>> chassis 任务已注册: ['Isaac-Chassis-Approach-v0', 'Isaac-Chassis-Approach-Play-v0']
+[Info] [carb] Logging to file: /home/hjc/miniconda3/envs/isaac_rm/lib/python3.11/site-packages/isaacsim/kit/logs/Kit/Isaac-Sim/5.1/kit_20260615_102725.log
+2026-06-15T17:34:09Z [403,800ms] [Warning] [omni.usd_config.extension] Enable omni.materialx.libs extension to use MaterialX
+2026-06-15T17:34:22Z [417,321ms] [Warning] [carb] Acquiring non optional plugin interface which is not listed as dependency: [omni::physx::IPhysxBenchmarks v1.0] (plugin: <default plugin>), by client: omni.physics.physx.plugin. Add it to CARB_PLUGIN_IMPL_DEPS() macro of a client.
+2026-06-15T17:34:23Z [418,377ms] [Warning] [omni.isaac.dynamic_control] omni.isaac.dynamic_control is deprecated as of Isaac Sim 4.5. No action is needed from end-users.
+2026-06-15T17:34:57Z [452,053ms] [Warning] [gpu.foundation.plugin] Skipping unsupported non-NVIDIA GPU: Intel(R) UHD Graphics 630 (CFL GT2)
+2026-06-15T17:34:57Z [452,054ms] [Warning] [gpu.foundation.plugin] Skipping unsupported non-NVIDIA GPU: Intel(R) UHD Graphics 630 (CFL GT2)
+
+|---------------------------------------------------------------------------------------------|
+| Driver Version: 595.58.03     | Graphics API: Vulkan
+|=============================================================================================|
+| GPU | Name                             | Active | LDA | GPU Memory | Vendor-ID | LUID       |
+|     |                                  |        |     |            | Device-ID | UUID       |
+|     |                                  |        |     |            | Bus-ID    |            |
+|---------------------------------------------------------------------------------------------|
+| 0   | NVIDIA GeForce GTX 1660 Ti       | Yes: 0 |     | 6390    MB | 10de      | 0          |
+|     |                                  |        |     |            | 2191      | 16d19fe6.. |
+|     |                                  |        |     |            | 1         |            |
+|---------------------------------------------------------------------------------------------|
+| 1   | Intel(R) UHD Graphics 630 (CFL.. |        |     | 11884   MB | 8086      | 0          |
+|     |                                  |        |     |            | 3e9b      | 86809b3e.. |
+|     |                                  |        |     |            | 0         |            |
+|=============================================================================================|
+| OS: 22.04.5 LTS (Jammy Jellyfish) ubuntu, Version: 22.04.5, Kernel: 6.8.0-117-generic
+| XServer Vendor: The X.Org Foundation, XServer Version: 12101004 (1.21.1.4)
+| Processor: Intel(R) Core(TM) i7-9750H CPU @ 2.60GHz
+| Cores: 6 | Logical Cores: 12
+|---------------------------------------------------------------------------------------------|
+| Total Memory (MB): 15846 | Free Memory: 2855
+| Total Page/Swap (MB): 0 | Free Page/Swap: 0
+|---------------------------------------------------------------------------------------------|
+2026-06-15T17:34:58Z [452,766ms] [Warning] [gpu.foundation.plugin] CPU performance profile is set to powersave. This profile sets the CPU to the lowest frequency reducing performance.
+2026-06-15T17:34:58Z [452,987ms] [Warning] [gpu.foundation.plugin] IOMMU is enabled.
+2026-06-15T17:34:58Z [452,987ms] [Warning] [gpu.foundation.plugin] Detected IOMMU is enabled. Running CUDA peer-to-peer bandwidth and latency validation.
+Unidirectional P2P=Enabled Bandwidth (P2P Writes) Matrix (GB/s)
+   D\D     0 
+     0 261.64 
+P2P=Enabled Latency (P2P Writes) Matrix (us)
+   GPU     0 
+     0   1.70 
+
+   CPU     0 
+     0   2.40 

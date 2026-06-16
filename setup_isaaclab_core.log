@@ -1,0 +1,243 @@
+Looking in indexes: https://mirrors.aliyun.com/pypi/simple/
+Obtaining file:///home/hjc/IsaacLab/source/isaaclab
+  Installing build dependencies: started
+  Installing build dependencies: finished with status 'done'
+  Checking if build backend supports build_editable: started
+  Checking if build backend supports build_editable: finished with status 'done'
+  Getting requirements to build editable: started
+  Getting requirements to build editable: finished with status 'done'
+  Preparing editable metadata (pyproject.toml): started
+  Preparing editable metadata (pyproject.toml): finished with status 'done'
+Requirement already satisfied: numpy<2 in /home/hjc/miniconda3/envs/isaac_rm/lib/python3.11/site-packages (from isaaclab==0.54.2) (1.26.0)
+Requirement already satisfied: torch>=2.7 in /home/hjc/miniconda3/envs/isaac_rm/lib/python3.11/site-packages (from isaaclab==0.54.2) (2.7.0+cu128)
+Collecting onnx>=1.18.0 (from isaaclab==0.54.2)
+  Using cached https://mirrors.aliyun.com/pypi/packages/d6/2b/021dcd2dd50c3c71b7959d7368526da384a295c162fb4863f36057973f78/onnx-1.21.0-cp311-cp311-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl (17.6 MB)
+Collecting prettytable==3.3.0 (from isaaclab==0.54.2)
+  Using cached https://mirrors.aliyun.com/pypi/packages/5f/ab/64371af206988d7b15c8112c9c277b8eb4618397c01471e52b902a17f59c/prettytable-3.3.0-py3-none-any.whl (26 kB)
+Requirement already satisfied: toml in /home/hjc/miniconda3/envs/isaac_rm/lib/python3.11/site-packages (from isaaclab==0.54.2) (0.10.2)
+Collecting hidapi==0.14.0.post2 (from isaaclab==0.54.2)
+  Using cached https://mirrors.aliyun.com/pypi/packages/46/07/0d773755e0c629cabd6fa10251929fbb6cba4c1936116d753e77a792eba1/hidapi-0.14.0.post2-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (705 kB)
+Collecting gymnasium==1.2.1 (from isaaclab==0.54.2)
+  Using cached https://mirrors.aliyun.com/pypi/packages/ef/73/85bc0412f15388e3068dc93331c858df6c8fc635b1e3cb30c7f7070ca481/gymnasium-1.2.1-py3-none-any.whl (951 kB)
+Requirement already satisfied: trimesh in /home/hjc/miniconda3/envs/isaac_rm/lib/python3.11/site-packages (from isaaclab==0.54.2) (4.5.1)
+Collecting pyglet<2 (from isaaclab==0.54.2)
+  Using cached https://mirrors.aliyun.com/pypi/packages/e2/43/46aa0ab49f2f5145d201780c7595cf0c305fb4fb5d00d6639792a3d0e770/pyglet-1.5.31-py3-none-any.whl (1.1 MB)
+Collecting transformers==4.57.6 (from isaaclab==0.54.2)
+  Using cached https://mirrors.aliyun.com/pypi/packages/03/b8/e484ef633af3887baeeb4b6ad12743363af7cce68ae51e938e00aaa0529d/transformers-4.57.6-py3-none-any.whl (12.0 MB)
+Collecting einops (from isaaclab==0.54.2)
+  Using cached https://mirrors.aliyun.com/pypi/packages/2a/09/f8d8f8f31e4483c10a906437b4ce31bdf3d6d417b73fe33f1a8b59e34228/einops-0.8.2-py3-none-any.whl (65 kB)
+Collecting warp-lang (from isaaclab==0.54.2)
+  Using cached https://mirrors.aliyun.com/pypi/packages/9a/32/784829665b0cc6fadada337f103c811b7bf92a951a69c08f7e3cd6ab2580/warp_lang-1.14.0-py3-none-manylinux_2_28_x86_64.whl (138.7 MB)
+Requirement already satisfied: pillow==11.3.0 in /home/hjc/miniconda3/envs/isaac_rm/lib/python3.11/site-packages (from isaaclab==0.54.2) (11.3.0)
+Collecting starlette==0.49.1 (from isaaclab==0.54.2)
+  Using cached https://mirrors.aliyun.com/pypi/packages/51/da/545b75d420bb23b5d494b0517757b351963e974e79933f01e05c929f20a6/starlette-0.49.1-py3-none-any.whl (74 kB)
+Collecting pytest (from isaaclab==0.54.2)
+  Using cached https://mirrors.aliyun.com/pypi/packages/8b/5a/ba30a81239b909821b3153e303e7def45178bf353da4f72380e6c5e8793b/pytest-9.1.0-py3-none-any.whl (386 kB)
+Collecting pytest-mock (from isaaclab==0.54.2)
+  Using cached https://mirrors.aliyun.com/pypi/packages/5a/cc/06253936f4a7fa2e0f48dfe6d851d9c56df896a9ab09ac019d70b760619c/pytest_mock-3.15.1-py3-none-any.whl (10 kB)
+Collecting junitparser (from isaaclab==0.54.2)
+  Using cached https://mirrors.aliyun.com/pypi/packages/e5/32/15c6dd4267d530c38ca8b661c8322d201a6766087efd81ef81d3456e3cad/junitparser-5.0.1-py3-none-any.whl (15 kB)
+Requirement already satisfied: flatdict==4.0.1 in /home/hjc/miniconda3/envs/isaac_rm/lib/python3.11/site-packages (from isaaclab==0.54.2) (4.0.1)
+Collecting flaky (from isaaclab==0.54.2)
+  Downloading https://mirrors.aliyun.com/pypi/packages/7f/b8/b830fc43663246c3f3dd1ae7dca4847b96ed992537e85311e27fa41ac40e/flaky-3.8.1-py2.py3-none-any.whl (19 kB)
+Requirement already satisfied: packaging in /home/hjc/miniconda3/envs/isaac_rm/lib/python3.11/site-packages (from isaaclab==0.54.2) (23.0)
+Collecting pin-pink==3.1.0 (from isaaclab==0.54.2)
+  Downloading https://mirrors.aliyun.com/pypi/packages/88/43/aa9bdf3db894dcbbf79be6f8a68c6154f4ffa5d301f3bf99a126d0fdd593/pin_pink-3.1.0-py3-none-any.whl (53 kB)
+Collecting daqp==0.7.2 (from isaaclab==0.54.2)
+  Downloading https://mirrors.aliyun.com/pypi/packages/eb/1e/405c9bd710e46e701254b6fa2f8e6d5e1d669d92316a81761f73768edd3b/daqp-0.7.2-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (624 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 624.9/624.9 kB 402.1 kB/s  0:00:01
+Collecting dex-retargeting==0.4.6 (from isaaclab==0.54.2)
+  Downloading https://mirrors.aliyun.com/pypi/packages/c8/73/49bc6d0e105aeb2bc7b7ce625b9bb266ada4f6675c43aca101355d309211/dex_retargeting-0.4.6-py3-none-any.whl (54 kB)
+Collecting pytransform3d>=3.5.0 (from dex-retargeting==0.4.6->isaaclab==0.54.2)
+  Downloading https://mirrors.aliyun.com/pypi/packages/ee/90/dec318aa22c0d9699b2fe856866e165194d743c462f24dc6780577994a93/pytransform3d-3.15.0-py3-none-any.whl (165 kB)
+Collecting pin>=2.7.0 (from dex-retargeting==0.4.6->isaaclab==0.54.2)
+  Downloading https://mirrors.aliyun.com/pypi/packages/0d/75/cc1bc40bace8ee7382f417f4dacceabcdcd20b716fa66a5de029f98a4715/pin-4.0.0-0-cp311-cp311-manylinux_2_28_x86_64.whl (10.2 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 10.2/10.2 MB 505.2 kB/s  0:00:20
+Collecting nlopt<2.8.0,>=2.6.1 (from dex-retargeting==0.4.6->isaaclab==0.54.2)
+  Downloading https://mirrors.aliyun.com/pypi/packages/54/4e/a7123adf391ed71175c5c8e8217be2ac3c335cb67c3601d183e94337393d/nlopt-2.7.1-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (426 kB)
+Collecting anytree>=2.12.0 (from dex-retargeting==0.4.6->isaaclab==0.54.2)
+  Downloading https://mirrors.aliyun.com/pypi/packages/7b/98/f6aa7fe0783e42be3093d8ef1b0ecdc22c34c0d69640dfb37f56925cb141/anytree-2.13.0-py3-none-any.whl (45 kB)
+Requirement already satisfied: pyyaml>=6.0.0 in /home/hjc/miniconda3/envs/isaac_rm/lib/python3.11/site-packages (from dex-retargeting==0.4.6->isaaclab==0.54.2) (6.0.2)
+Collecting lxml>=5.2.2 (from dex-retargeting==0.4.6->isaaclab==0.54.2)
+  Downloading https://mirrors.aliyun.com/pypi/packages/66/8d/d1b3271af0c0f1e27e8472a849e4d2c65bc7766884b9ad2da9e76e145c88/lxml-6.1.1-cp311-cp311-manylinux_2_26_x86_64.manylinux_2_28_x86_64.whl (5.2 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 5.2/5.2 MB 482.3 kB/s  0:00:10
+Requirement already satisfied: cloudpickle>=1.2.0 in /home/hjc/miniconda3/envs/isaac_rm/lib/python3.11/site-packages (from gymnasium==1.2.1->isaaclab==0.54.2) (3.1.2)
+Requirement already satisfied: typing-extensions>=4.3.0 in /home/hjc/miniconda3/envs/isaac_rm/lib/python3.11/site-packages (from gymnasium==1.2.1->isaaclab==0.54.2) (4.12.2)
+Requirement already satisfied: farama-notifications>=0.0.1 in /home/hjc/miniconda3/envs/isaac_rm/lib/python3.11/site-packages (from gymnasium==1.2.1->isaaclab==0.54.2) (0.0.6)
+Requirement already satisfied: setuptools>=19.0 in /home/hjc/miniconda3/envs/isaac_rm/lib/python3.11/site-packages (from hidapi==0.14.0.post2->isaaclab==0.54.2) (80.10.2)
+Collecting loop-rate-limiters>=0.1.0 (from pin-pink==3.1.0->isaaclab==0.54.2)
+  Downloading https://mirrors.aliyun.com/pypi/packages/e2/6d/d56be57340baf2e6f6361386f4c21b8b5e001251c64af954787f8d01ec78/loop_rate_limiters-1.2.0-py3-none-any.whl (10 kB)
+Collecting qpsolvers>=4.3.1 (from pin-pink==3.1.0->isaaclab==0.54.2)
+  Downloading https://mirrors.aliyun.com/pypi/packages/da/68/c6e6f378f79dff83584ed18acae88c1de1ea56afc5ba9a2831ad3716083d/qpsolvers-4.12.0-py3-none-any.whl (106 kB)
+Collecting quadprog>=0.1.11 (from pin-pink==3.1.0->isaaclab==0.54.2)
+  Downloading https://mirrors.aliyun.com/pypi/packages/5b/b1/b75dadb26dd2e4f315f8352e781156556227e3bb88534c2d2591b97bc8ed/quadprog-0.1.13-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (548 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 548.4/548.4 kB 399.7 kB/s  0:00:01
+Requirement already satisfied: wcwidth in /home/hjc/miniconda3/envs/isaac_rm/lib/python3.11/site-packages (from prettytable==3.3.0->isaaclab==0.54.2) (0.8.1)
+Requirement already satisfied: anyio<5,>=3.6.2 in /home/hjc/miniconda3/envs/isaac_rm/lib/python3.11/site-packages (from starlette==0.49.1->isaaclab==0.54.2) (4.13.0)
+Requirement already satisfied: filelock in /home/hjc/miniconda3/envs/isaac_rm/lib/python3.11/site-packages (from transformers==4.57.6->isaaclab==0.54.2) (3.13.1)
+Collecting huggingface-hub<1.0,>=0.34.0 (from transformers==4.57.6->isaaclab==0.54.2)
+  Downloading https://mirrors.aliyun.com/pypi/packages/a8/af/48ac8483240de756d2438c380746e7130d1c6f75802ef22f3c6d49982787/huggingface_hub-0.36.2-py3-none-any.whl (566 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 566.4/566.4 kB 421.6 kB/s  0:00:01
+Collecting regex!=2019.12.17 (from transformers==4.57.6->isaaclab==0.54.2)
+  Downloading https://mirrors.aliyun.com/pypi/packages/33/6f/1481597e859ef19508b345eec4afd1416ed6e6b459c75a64026ef193aecf/regex-2026.5.9-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (799 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 799.8/799.8 kB 453.8 kB/s  0:00:01
+Requirement already satisfied: requests in /home/hjc/miniconda3/envs/isaac_rm/lib/python3.11/site-packages (from transformers==4.57.6->isaaclab==0.54.2) (2.32.3)
+Collecting tokenizers<=0.23.0,>=0.22.0 (from transformers==4.57.6->isaaclab==0.54.2)
+  Downloading https://mirrors.aliyun.com/pypi/packages/2e/76/932be4b50ef6ccedf9d3c6639b056a967a86258c6d9200643f01269211ca/tokenizers-0.22.2-cp39-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (3.3 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 3.3/3.3 MB 456.8 kB/s  0:00:06
+Collecting safetensors>=0.4.3 (from transformers==4.57.6->isaaclab==0.54.2)
+  Downloading https://mirrors.aliyun.com/pypi/packages/28/50/f203ff3a3ddfe19308efc83c5a3a29ed02bf786732ec35e68bf9162f3365/safetensors-0.8.0-cp310-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (516 kB)
+Requirement already satisfied: tqdm>=4.27 in /home/hjc/miniconda3/envs/isaac_rm/lib/python3.11/site-packages (from transformers==4.57.6->isaaclab==0.54.2) (4.68.2)
+Requirement already satisfied: idna>=2.8 in /home/hjc/miniconda3/envs/isaac_rm/lib/python3.11/site-packages (from anyio<5,>=3.6.2->starlette==0.49.1->isaaclab==0.54.2) (3.10)
+Requirement already satisfied: fsspec>=2023.5.0 in /home/hjc/miniconda3/envs/isaac_rm/lib/python3.11/site-packages (from huggingface-hub<1.0,>=0.34.0->transformers==4.57.6->isaaclab==0.54.2) (2024.6.1)
+Collecting hf-xet<2.0.0,>=1.1.3 (from huggingface-hub<1.0,>=0.34.0->transformers==4.57.6->isaaclab==0.54.2)
+  Downloading https://mirrors.aliyun.com/pypi/packages/de/cc/f99f4bc7295023d7bd9ebbfd51f75cc530ca262c1227666268b8208f4b77/hf_xet-1.5.1-cp37-abi3-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (4.5 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 4.5/4.5 MB 459.3 kB/s  0:00:09
+Requirement already satisfied: protobuf>=4.25.1 in /home/hjc/miniconda3/envs/isaac_rm/lib/python3.11/site-packages (from onnx>=1.18.0->isaaclab==0.54.2) (7.35.1)
+Collecting ml_dtypes>=0.5.0 (from onnx>=1.18.0->isaaclab==0.54.2)
+  Downloading https://mirrors.aliyun.com/pypi/packages/a9/80/19189ea605017473660e43762dc853d2797984b3c7bf30ce656099add30c/ml_dtypes-0.5.4-cp311-cp311-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl (5.0 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 5.0/5.0 MB 488.5 kB/s  0:00:11
+Collecting cmeel (from pin>=2.7.0->dex-retargeting==0.4.6->isaaclab==0.54.2)
+  Downloading https://mirrors.aliyun.com/pypi/packages/da/39/f2db2ff475d42222c70fe25c737028aeaafdd9c0aeba04e6b2dc66e7f93f/cmeel-0.60.1-py3-none-any.whl (20 kB)
+Collecting cmeel-boost~=1.90.0 (from pin>=2.7.0->dex-retargeting==0.4.6->isaaclab==0.54.2)
+  Downloading https://mirrors.aliyun.com/pypi/packages/07/52/ff72d2e3950a09e9fe9714d5952597f695efd5efcdc388d3781cec1910f0/cmeel_boost-1.90.0-0-cp311-cp311-manylinux_2_28_x86_64.whl (36.2 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 36.2/36.2 MB 515.3 kB/s  0:01:10
+Collecting cmeel-urdfdom>=6 (from pin>=2.7.0->dex-retargeting==0.4.6->isaaclab==0.54.2)
+  Downloading https://mirrors.aliyun.com/pypi/packages/32/d4/dfd617e598100e4e53ae3d228a968facff80bae53038fb18e2dccb1ab03a/cmeel_urdfdom-6.0.0-0-py3-none-manylinux_2_28_x86_64.whl (530 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 530.0/530.0 kB 348.4 kB/s  0:00:01
+Collecting coal<4,>=3.0.3 (from pin>=2.7.0->dex-retargeting==0.4.6->isaaclab==0.54.2)
+  Downloading https://mirrors.aliyun.com/pypi/packages/43/45/e5859f9c03c6353e50ac8df218a6b9efb8de90f3fa1f3bd571bc6a3242cd/coal-3.0.3-0-cp311-cp311-manylinux_2_28_x86_64.whl (2.2 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 2.2/2.2 MB 475.9 kB/s  0:00:04
+Collecting libpinocchio==4.0.0 (from pin>=2.7.0->dex-retargeting==0.4.6->isaaclab==0.54.2)
+  Downloading https://mirrors.aliyun.com/pypi/packages/e2/b4/9292b05386d51975ffe69ebcc9dee351ee8018eb0dd1acbcdf48352b2b63/libpinocchio-4.0.0-0-py3-none-manylinux_2_28_x86_64.whl (3.8 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 3.8/3.8 MB 462.4 kB/s  0:00:08
+Collecting libcoal<4,>=3.0.3 (from libpinocchio==4.0.0->pin>=2.7.0->dex-retargeting==0.4.6->isaaclab==0.54.2)
+  Downloading https://mirrors.aliyun.com/pypi/packages/d8/a1/062d7d444eb9260244cdced41384933f8cdf5b383ab9ed2810d048720bd3/libcoal-3.0.3-0-py3-none-manylinux_2_28_x86_64.whl (2.3 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 2.3/2.3 MB 488.2 kB/s  0:00:04
+INFO: pip is looking at multiple versions of cmeel-boost to determine which version is compatible with other requirements. This could take a while.
+Collecting pin>=2.7.0 (from dex-retargeting==0.4.6->isaaclab==0.54.2)
+  Downloading https://mirrors.aliyun.com/pypi/packages/ab/97/766d9bb2c016f90a06bfd0205f6009337f422caf53bd8d15ffbcfbf73b9a/pin-3.9.0-0-cp311-cp311-manylinux_2_28_x86_64.whl (7.5 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 7.5/7.5 MB 495.7 kB/s  0:00:15
+Collecting cmeel-boost~=1.89.0 (from pin>=2.7.0->dex-retargeting==0.4.6->isaaclab==0.54.2)
+  Downloading https://mirrors.aliyun.com/pypi/packages/5a/db/f36899392766281352ac3c6935ebf8fb4465cef00cc44a221a18c1e3894c/cmeel_boost-1.89.0-1-cp311-cp311-manylinux_2_28_x86_64.whl (36.0 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 36.0/36.0 MB 501.8 kB/s  0:01:12
+Collecting libpinocchio==3.9.0 (from pin>=2.7.0->dex-retargeting==0.4.6->isaaclab==0.54.2)
+  Downloading https://mirrors.aliyun.com/pypi/packages/6b/2b/0408c86b4556e2f5b783e92e421dfbb357efd6363f457d8facd9c78eed5d/libpinocchio-3.9.0-1-py3-none-manylinux_2_28_x86_64.whl (7.0 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 7.0/7.0 MB 497.9 kB/s  0:00:14
+Collecting pin>=2.7.0 (from dex-retargeting==0.4.6->isaaclab==0.54.2)
+  Downloading https://mirrors.aliyun.com/pypi/packages/d1/35/14336eca99c7403e011fb3d6e20d51494ba8e1b03689f63ecea0e17f4beb/pin-3.8.0-0-cp311-cp311-manylinux_2_28_x86_64.whl (7.4 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 7.4/7.4 MB 497.9 kB/s  0:00:14
+Collecting libpinocchio==3.8.0 (from pin>=2.7.0->dex-retargeting==0.4.6->isaaclab==0.54.2)
+  Downloading https://mirrors.aliyun.com/pypi/packages/28/0d/5deebded1fa71a381c9efd3ea69103a38f64d804da704148e92f4886762d/libpinocchio-3.8.0-0-py3-none-manylinux_2_28_x86_64.whl (4.8 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 4.8/4.8 MB 424.0 kB/s  0:00:11
+Collecting pin>=2.7.0 (from dex-retargeting==0.4.6->isaaclab==0.54.2)
+  Downloading https://mirrors.aliyun.com/pypi/packages/76/f6/299028a32f4069c438d6a7d7489ce359ecb1a081374e26ea929878fcbe4f/pin-3.7.0-0-cp311-cp311-manylinux_2_28_x86_64.whl (18.2 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 18.2/18.2 MB 531.0 kB/s  0:00:35
+Collecting cmeel-boost~=1.87.0 (from pin>=2.7.0->dex-retargeting==0.4.6->isaaclab==0.54.2)
+  Downloading https://mirrors.aliyun.com/pypi/packages/9c/75/0b56a0cdfc9e12e1436a24e164f83d4358d89fce73290f32f937e24fbbc2/cmeel_boost-1.87.0.1-0-cp311-cp311-manylinux_2_28_x86_64.whl (35.9 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 35.9/35.9 MB 553.9 kB/s  0:01:04
+Collecting pin>=2.7.0 (from dex-retargeting==0.4.6->isaaclab==0.54.2)
+  Downloading https://mirrors.aliyun.com/pypi/packages/12/a0/df562a0e531531fc13db2e18d1b71691fc5f8ae174e026b38b4c771f4dc4/pin-3.4.0-0-cp311-cp311-manylinux_2_28_x86_64.whl (17.8 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 17.8/17.8 MB 535.1 kB/s  0:00:32
+Collecting coal-library<4,>=3 (from pin>=2.7.0->dex-retargeting==0.4.6->isaaclab==0.54.2)
+  Downloading https://mirrors.aliyun.com/pypi/packages/68/40/4ae9c8f09532174c49bd152c46efc71f4ee5596236eaef9901ba643b33d5/coal_library-3.0.1-0-cp311-cp311-manylinux_2_28_x86_64.whl (6.4 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 6.4/6.4 MB 504.6 kB/s  0:00:12
+Collecting pin>=2.7.0 (from dex-retargeting==0.4.6->isaaclab==0.54.2)
+  Downloading https://mirrors.aliyun.com/pypi/packages/d5/77/decbe7760f51258ac36f52b2553ed10527711be71f9758ac59680a975859/pin-3.3.1-1-cp311-cp311-manylinux_2_28_x86_64.whl (18.8 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 18.8/18.8 MB 468.6 kB/s  0:00:39
+Collecting cmeel-urdfdom<4,>=3.1.1.1 (from pin>=2.7.0->dex-retargeting==0.4.6->isaaclab==0.54.2)
+  Downloading https://mirrors.aliyun.com/pypi/packages/0e/78/4e80ead35f1664717ec6537154bee33ade82d5499057fa2d3ed811ee0565/cmeel_urdfdom-3.1.1.1-0-py3-none-manylinux_2_28_x86_64.whl (405 kB)
+Collecting pin>=2.7.0 (from dex-retargeting==0.4.6->isaaclab==0.54.2)
+  Downloading https://mirrors.aliyun.com/pypi/packages/91/3a/b63a053cc34c054bd590348d329e4b4eb5ba65e7577a37189b19aa032ee1/pin-2.7.0-2-cp311-cp311-manylinux_2_28_x86_64.whl (6.1 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 6.1/6.1 MB 468.2 kB/s  0:00:12
+Collecting cmeel-boost~=1.83.0 (from pin>=2.7.0->dex-retargeting==0.4.6->isaaclab==0.54.2)
+  Downloading https://mirrors.aliyun.com/pypi/packages/01/c9/bd04a1f5773dfe97993b4148cf48b5e61032cd3fa33f38a783ca15a3979e/cmeel_boost-1.83.0-0-cp311-cp311-manylinux_2_28_x86_64.whl (34.7 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 34.7/34.7 MB 511.4 kB/s  0:01:08
+Collecting hpp-fcl<4,>=2.3.4 (from pin>=2.7.0->dex-retargeting==0.4.6->isaaclab==0.54.2)
+  Downloading https://mirrors.aliyun.com/pypi/packages/eb/64/760c132e1418a4945b1cc61b2e5ad4d3b6b9e2353235ff6d1cf1982c517f/hpp_fcl-2.4.4-3-cp311-cp311-manylinux_2_28_x86_64.whl (2.4 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 2.4/2.4 MB 505.6 kB/s  0:00:04
+Collecting cmeel-console-bridge (from cmeel-urdfdom<4,>=3.1.1.1->pin>=2.7.0->dex-retargeting==0.4.6->isaaclab==0.54.2)
+  Downloading https://mirrors.aliyun.com/pypi/packages/50/a5/70e23c5570506bb39b56aa4d0f3a4a414e38082ddb33e86a48b546620121/cmeel_console_bridge-1.0.2.3-0-py3-none-manylinux_2_28_x86_64.whl (24 kB)
+Collecting cmeel-tinyxml (from cmeel-urdfdom<4,>=3.1.1.1->pin>=2.7.0->dex-retargeting==0.4.6->isaaclab==0.54.2)
+  Downloading https://mirrors.aliyun.com/pypi/packages/71/b1/4becb0e11e954e233e84e669216f103ef61857f228f7372aac58a189cd5f/cmeel_tinyxml-2.6.2.3-0-py3-none-manylinux_2_28_x86_64.whl (62 kB)
+Collecting cmeel-assimp<6,>=5.3.1 (from hpp-fcl<4,>=2.3.4->pin>=2.7.0->dex-retargeting==0.4.6->isaaclab==0.54.2)
+  Downloading https://mirrors.aliyun.com/pypi/packages/a1/ca/2a90a07d23f0c540fdcc1b5a50e3b424760db880e13bdf246e8b35abfaba/cmeel_assimp-5.4.3.1-0-py3-none-manylinux_2_28_x86_64.whl (14.4 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 14.4/14.4 MB 506.3 kB/s  0:00:28
+Collecting cmeel-octomap<2,>=1.9.8.2 (from hpp-fcl<4,>=2.3.4->pin>=2.7.0->dex-retargeting==0.4.6->isaaclab==0.54.2)
+  Downloading https://mirrors.aliyun.com/pypi/packages/d6/14/b85bd33bb05c9bb7e87b9ac8401793c12a80a6d594b3ca4bcb5e971a24b7/cmeel_octomap-1.10.0-5-py3-none-manylinux_2_28_x86_64.whl (1.1 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.1/1.1 MB 449.0 kB/s  0:00:02
+Collecting cmeel-qhull<8.0.3,>=8.0.2.1 (from hpp-fcl<4,>=2.3.4->pin>=2.7.0->dex-retargeting==0.4.6->isaaclab==0.54.2)
+  Downloading https://mirrors.aliyun.com/pypi/packages/4f/c1/44874cd8bfc1e3f7cb15678c836c7a1d5537f34f5a727a0207e01f395598/cmeel_qhull-8.0.2.1-1-py3-none-manylinux_2_28_x86_64.whl (3.3 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 3.3/3.3 MB 472.5 kB/s  0:00:06
+Collecting eigenpy<4,>=3.1 (from hpp-fcl<4,>=2.3.4->pin>=2.7.0->dex-retargeting==0.4.6->isaaclab==0.54.2)
+  Downloading https://mirrors.aliyun.com/pypi/packages/83/a3/79326cff7ab8a55cd9024eee4ddf3082ac9f7be2c978fc5f5b056affc968/eigenpy-3.13.0-0-cp311-cp311-manylinux_2_28_x86_64.whl (6.1 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 6.1/6.1 MB 567.2 kB/s  0:00:10
+Collecting cmeel-zlib (from cmeel-assimp<6,>=5.3.1->hpp-fcl<4,>=2.3.4->pin>=2.7.0->dex-retargeting==0.4.6->isaaclab==0.54.2)
+  Downloading https://mirrors.aliyun.com/pypi/packages/70/a4/d345605b6f8c9d665baa1dd2f839ad6aee0d771e174be12c81fdd53067ed/cmeel_zlib-1.3.2-0-py3-none-manylinux_2_28_x86_64.whl (1.1 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.1/1.1 MB 508.5 kB/s  0:00:01
+INFO: pip is looking at multiple versions of eigenpy to determine which version is compatible with other requirements. This could take a while.
+Collecting eigenpy<4,>=3.1 (from hpp-fcl<4,>=2.3.4->pin>=2.7.0->dex-retargeting==0.4.6->isaaclab==0.54.2)
+  Downloading https://mirrors.aliyun.com/pypi/packages/ee/c9/c97ee17b2cdae3b1b9ce3a048469d9d5ca03ab8baf2692392cea610c7323/eigenpy-3.12.0-1-cp311-cp311-manylinux_2_28_x86_64.whl (6.0 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 6.0/6.0 MB 533.1 kB/s  0:00:11
+  Downloading https://mirrors.aliyun.com/pypi/packages/0c/06/f3ddc152d7f453b309547118ff0b92f6b3ab6d40b287240e5726f5e2b7ce/eigenpy-3.10.3-0-cp311-cp311-manylinux_2_28_x86_64.whl (4.9 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 4.9/4.9 MB 405.0 kB/s  0:00:12
+  Downloading https://mirrors.aliyun.com/pypi/packages/dd/0e/e57fcbb4fd01ce3c5150d82ae87f3922f6a58fe0954cfaa9fae7a66bdcc6/eigenpy-3.10.1-1-cp311-cp311-manylinux_2_28_x86_64.whl (4.9 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 4.9/4.9 MB 399.0 kB/s  0:00:12
+  Downloading https://mirrors.aliyun.com/pypi/packages/a8/9f/002e43ef95e58649ee194cd601dfba9104a8a26a4b4da41e1f08824a9110/eigenpy-3.5.1-0-cp311-cp311-manylinux_2_28_x86_64.whl (4.7 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 4.7/4.7 MB 485.4 kB/s  0:00:09
+Requirement already satisfied: scipy in /home/hjc/miniconda3/envs/isaac_rm/lib/python3.11/site-packages (from pytransform3d>=3.5.0->dex-retargeting==0.4.6->isaaclab==0.54.2) (1.15.3)
+Requirement already satisfied: matplotlib in /home/hjc/miniconda3/envs/isaac_rm/lib/python3.11/site-packages (from pytransform3d>=3.5.0->dex-retargeting==0.4.6->isaaclab==0.54.2) (3.10.3)
+Requirement already satisfied: sympy>=1.13.3 in /home/hjc/miniconda3/envs/isaac_rm/lib/python3.11/site-packages (from torch>=2.7->isaaclab==0.54.2) (1.13.3)
+Requirement already satisfied: networkx in /home/hjc/miniconda3/envs/isaac_rm/lib/python3.11/site-packages (from torch>=2.7->isaaclab==0.54.2) (3.3)
+Requirement already satisfied: jinja2 in /home/hjc/miniconda3/envs/isaac_rm/lib/python3.11/site-packages (from torch>=2.7->isaaclab==0.54.2) (3.1.6)
+Requirement already satisfied: nvidia-cuda-nvrtc-cu12==12.8.61 in /home/hjc/miniconda3/envs/isaac_rm/lib/python3.11/site-packages (from torch>=2.7->isaaclab==0.54.2) (12.8.61)
+Requirement already satisfied: nvidia-cuda-runtime-cu12==12.8.57 in /home/hjc/miniconda3/envs/isaac_rm/lib/python3.11/site-packages (from torch>=2.7->isaaclab==0.54.2) (12.8.57)
+Requirement already satisfied: nvidia-cuda-cupti-cu12==12.8.57 in /home/hjc/miniconda3/envs/isaac_rm/lib/python3.11/site-packages (from torch>=2.7->isaaclab==0.54.2) (12.8.57)
+Requirement already satisfied: nvidia-cudnn-cu12==9.7.1.26 in /home/hjc/miniconda3/envs/isaac_rm/lib/python3.11/site-packages (from torch>=2.7->isaaclab==0.54.2) (9.7.1.26)
+Requirement already satisfied: nvidia-cublas-cu12==12.8.3.14 in /home/hjc/miniconda3/envs/isaac_rm/lib/python3.11/site-packages (from torch>=2.7->isaaclab==0.54.2) (12.8.3.14)
+Requirement already satisfied: nvidia-cufft-cu12==11.3.3.41 in /home/hjc/miniconda3/envs/isaac_rm/lib/python3.11/site-packages (from torch>=2.7->isaaclab==0.54.2) (11.3.3.41)
+Requirement already satisfied: nvidia-curand-cu12==10.3.9.55 in /home/hjc/miniconda3/envs/isaac_rm/lib/python3.11/site-packages (from torch>=2.7->isaaclab==0.54.2) (10.3.9.55)
+Requirement already satisfied: nvidia-cusolver-cu12==11.7.2.55 in /home/hjc/miniconda3/envs/isaac_rm/lib/python3.11/site-packages (from torch>=2.7->isaaclab==0.54.2) (11.7.2.55)
+Requirement already satisfied: nvidia-cusparse-cu12==12.5.7.53 in /home/hjc/miniconda3/envs/isaac_rm/lib/python3.11/site-packages (from torch>=2.7->isaaclab==0.54.2) (12.5.7.53)
+Requirement already satisfied: nvidia-cusparselt-cu12==0.6.3 in /home/hjc/miniconda3/envs/isaac_rm/lib/python3.11/site-packages (from torch>=2.7->isaaclab==0.54.2) (0.6.3)
+Requirement already satisfied: nvidia-nccl-cu12==2.26.2 in /home/hjc/miniconda3/envs/isaac_rm/lib/python3.11/site-packages (from torch>=2.7->isaaclab==0.54.2) (2.26.2)
+Requirement already satisfied: nvidia-nvtx-cu12==12.8.55 in /home/hjc/miniconda3/envs/isaac_rm/lib/python3.11/site-packages (from torch>=2.7->isaaclab==0.54.2) (12.8.55)
+Requirement already satisfied: nvidia-nvjitlink-cu12==12.8.61 in /home/hjc/miniconda3/envs/isaac_rm/lib/python3.11/site-packages (from torch>=2.7->isaaclab==0.54.2) (12.8.61)
+Requirement already satisfied: nvidia-cufile-cu12==1.13.0.11 in /home/hjc/miniconda3/envs/isaac_rm/lib/python3.11/site-packages (from torch>=2.7->isaaclab==0.54.2) (1.13.0.11)
+Requirement already satisfied: triton==3.3.0 in /home/hjc/miniconda3/envs/isaac_rm/lib/python3.11/site-packages (from torch>=2.7->isaaclab==0.54.2) (3.3.0)
+Requirement already satisfied: mpmath<1.4,>=1.1.0 in /home/hjc/miniconda3/envs/isaac_rm/lib/python3.11/site-packages (from sympy>=1.13.3->torch>=2.7->isaaclab==0.54.2) (1.3.0)
+Requirement already satisfied: MarkupSafe>=2.0 in /home/hjc/miniconda3/envs/isaac_rm/lib/python3.11/site-packages (from jinja2->torch>=2.7->isaaclab==0.54.2) (2.1.3)
+Requirement already satisfied: contourpy>=1.0.1 in /home/hjc/miniconda3/envs/isaac_rm/lib/python3.11/site-packages (from matplotlib->pytransform3d>=3.5.0->dex-retargeting==0.4.6->isaaclab==0.54.2) (1.3.1)
+Requirement already satisfied: cycler>=0.10 in /home/hjc/miniconda3/envs/isaac_rm/lib/python3.11/site-packages (from matplotlib->pytransform3d>=3.5.0->dex-retargeting==0.4.6->isaaclab==0.54.2) (0.11.0)
+Requirement already satisfied: fonttools>=4.22.0 in /home/hjc/miniconda3/envs/isaac_rm/lib/python3.11/site-packages (from matplotlib->pytransform3d>=3.5.0->dex-retargeting==0.4.6->isaaclab==0.54.2) (4.55.3)
+Requirement already satisfied: kiwisolver>=1.3.1 in /home/hjc/miniconda3/envs/isaac_rm/lib/python3.11/site-packages (from matplotlib->pytransform3d>=3.5.0->dex-retargeting==0.4.6->isaaclab==0.54.2) (1.4.4)
+Requirement already satisfied: pyparsing>=2.3.1 in /home/hjc/miniconda3/envs/isaac_rm/lib/python3.11/site-packages (from matplotlib->pytransform3d>=3.5.0->dex-retargeting==0.4.6->isaaclab==0.54.2) (3.0.9)
+Requirement already satisfied: python-dateutil>=2.7 in /home/hjc/miniconda3/envs/isaac_rm/lib/python3.11/site-packages (from matplotlib->pytransform3d>=3.5.0->dex-retargeting==0.4.6->isaaclab==0.54.2) (2.9.0.post0)
+Requirement already satisfied: six>=1.5 in /home/hjc/miniconda3/envs/isaac_rm/lib/python3.11/site-packages (from python-dateutil>=2.7->matplotlib->pytransform3d>=3.5.0->dex-retargeting==0.4.6->isaaclab==0.54.2) (1.17.0)
+Collecting iniconfig>=1.0.1 (from pytest->isaaclab==0.54.2)
+  Downloading https://mirrors.aliyun.com/pypi/packages/cb/b1/3846dd7f199d53cb17f49cba7e651e9ce294d8497c8c150530ed11865bb8/iniconfig-2.3.0-py3-none-any.whl (7.5 kB)
+Collecting pluggy<2,>=1.5 (from pytest->isaaclab==0.54.2)
+  Downloading https://mirrors.aliyun.com/pypi/packages/54/20/4d324d65cc6d9205fabedc306948156824eb9f0ee1633355a8f7ec5c66bf/pluggy-1.6.0-py3-none-any.whl (20 kB)
+Requirement already satisfied: pygments>=2.7.2 in /home/hjc/miniconda3/envs/isaac_rm/lib/python3.11/site-packages (from pytest->isaaclab==0.54.2) (2.20.0)
+Requirement already satisfied: charset-normalizer<4,>=2 in /home/hjc/miniconda3/envs/isaac_rm/lib/python3.11/site-packages (from requests->transformers==4.57.6->isaaclab==0.54.2) (3.3.2)
+Requirement already satisfied: urllib3<3,>=1.21.1 in /home/hjc/miniconda3/envs/isaac_rm/lib/python3.11/site-packages (from requests->transformers==4.57.6->isaaclab==0.54.2) (2.7.0)
+Requirement already satisfied: certifi>=2017.4.17 in /home/hjc/miniconda3/envs/isaac_rm/lib/python3.11/site-packages (from requests->transformers==4.57.6->isaaclab==0.54.2) (2026.5.20)
+Building wheels for collected packages: isaaclab
+  Building editable for isaaclab (pyproject.toml): started
+  Building editable for isaaclab (pyproject.toml): finished with status 'done'
+  Created wheel for isaaclab: filename=isaaclab-0.54.2-0.editable-py3-none-any.whl size=3504 sha256=b76c2adc8103b9823537846118b1099e4a9a63ba84d42024caa2d8ee8d2a39c8
+  Stored in directory: /tmp/pip-ephem-wheel-cache-ys717rzp/wheels/f2/59/88/6095fe23646009b8fa59460ff367f9599c36966210007d2cad
+Successfully built isaaclab
+Installing collected packages: pyglet, daqp, warp-lang, safetensors, regex, quadprog, prettytable, pluggy, nlopt, ml_dtypes, lxml, loop-rate-limiters, junitparser, iniconfig, hidapi, hf-xet, gymnasium, flaky, einops, cmeel, anytree, starlette, qpsolvers, pytest, onnx, huggingface-hub, cmeel-zlib, cmeel-tinyxml, cmeel-qhull, cmeel-octomap, cmeel-console-bridge, cmeel-boost, tokenizers, pytransform3d, pytest-mock, eigenpy, cmeel-urdfdom, cmeel-assimp, transformers, hpp-fcl, pin, pin-pink, dex-retargeting, isaaclab
+  Attempting uninstall: gymnasium
+    Found existing installation: gymnasium 1.3.0
+    Uninstalling gymnasium-1.3.0:
+      Successfully uninstalled gymnasium-1.3.0
+  Attempting uninstall: starlette
+    Found existing installation: starlette 0.45.3
+    Uninstalling starlette-0.45.3:
+      Successfully uninstalled starlette-0.45.3
+
+ERROR: pip's dependency resolver does not currently take into account all the packages that are installed. This behaviour is the source of the following dependency conflicts.
+fastapi 0.115.7 requires starlette<0.46.0,>=0.40.0, but you have starlette 0.49.1 which is incompatible.
+Successfully installed anytree-2.13.0 cmeel-0.60.1 cmeel-assimp-5.4.3.1 cmeel-boost-1.83.0 cmeel-console-bridge-1.0.2.3 cmeel-octomap-1.10.0 cmeel-qhull-8.0.2.1 cmeel-tinyxml-2.6.2.3 cmeel-urdfdom-3.1.1.1 cmeel-zlib-1.3.2 daqp-0.7.2 dex-retargeting-0.4.6 eigenpy-3.5.1 einops-0.8.2 flaky-3.8.1 gymnasium-1.2.1 hf-xet-1.5.1 hidapi-0.14.0.post2 hpp-fcl-2.4.4 huggingface-hub-0.36.2 iniconfig-2.3.0 isaaclab-0.54.2 junitparser-5.0.1 loop-rate-limiters-1.2.0 lxml-6.1.1 ml_dtypes-0.5.4 nlopt-2.7.1 onnx-1.21.0 pin-2.7.0 pin-pink-3.1.0 pluggy-1.6.0 prettytable-3.3.0 pyglet-1.5.31 pytest-9.1.0 pytest-mock-3.15.1 pytransform3d-3.15.0 qpsolvers-4.12.0 quadprog-0.1.13 regex-2026.5.9 safetensors-0.8.0 starlette-0.49.1 tokenizers-0.22.2 transformers-4.57.6 warp-lang-1.14.0

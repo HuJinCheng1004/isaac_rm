@@ -223,6 +223,19 @@ class BBox3DObservation(ManagerTermBase):
         obs = torch.cat([center, distance.unsqueeze(-1), size, ndc], dim=-1)  # (N,9)
         obs = torch.where(visible.unsqueeze(-1), obs, torch.zeros_like(obs))
 
+        # NaN/Inf 兜底：若某个环境物理求解器爆炸（body_pos_w 出现 nan/inf），不让它经
+        # 观测/奖励污染整批 PPO 更新（旧 run 在 step7200 整网权重变 NaN 后 5 万步全废）。
+        # 把坏环境视作"不可见"（触发丢失失败、自然重置），并把数值字段清零。
+        finite = torch.isfinite(obs).all(dim=-1) & torch.isfinite(distance) \
+            & torch.isfinite(u_ndc) & torch.isfinite(v_ndc)
+        visible = visible & finite
+        obs = torch.nan_to_num(obs, nan=0.0, posinf=0.0, neginf=0.0)
+        u_ndc = torch.nan_to_num(u_ndc, nan=0.0, posinf=0.0, neginf=0.0)
+        v_ndc = torch.nan_to_num(v_ndc, nan=0.0, posinf=0.0, neginf=0.0)
+        distance = torch.nan_to_num(distance, nan=0.0, posinf=0.0, neginf=0.0)
+        center = torch.nan_to_num(center, nan=0.0, posinf=0.0, neginf=0.0)
+        size = torch.nan_to_num(size, nan=0.0, posinf=0.0, neginf=0.0)
+
         self._cache = BBox3DState(
             center=center, distance=distance, size=size,
             u_ndc=u_ndc, v_ndc=v_ndc, visible=visible, obs=obs,

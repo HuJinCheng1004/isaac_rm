@@ -70,9 +70,11 @@ NEAR_PENALTY = 4.0          # approach 近端惩罚斜率：distance < D_TARGET 
 CENTER_TOL = 0.25           # 居中成功容差：|中心投影| (ndc)  —— 由 0.15 放宽
 DIST_TOL = 0.2             # 距离成功容差：|distance - D_target| [m]
 SUCCESS_DWELL = 5           # 成功条件必须保持的步数（0.5 s @ 10 Hz）—— 由 10 放宽
-# 丢失视野连续 LOST_DWELL 步才判失败。由 1 放宽到 3（0.3 s 宽限），避免观测
-# 丢帧（dropout_prob）/bbox 噪声导致 visible 抖一帧就触发"假失败"，逼策略不敢靠近。
-LOST_DWELL = 3
+# 丢失视野连续 LOST_DWELL 步才判失败。由 1->3->5（0.5 s 宽限）：失败仍是主导终止
+# （旧 run 健康期 success≈0、回合几乎全靠"丢失"结束），再放宽一点宽限给策略找回
+# 视野的机会，缓解"成功难、失败易"的不对称。避免观测丢帧/噪声导致 visible 抖一帧
+# 就触发"假失败"，逼策略不敢靠近。
+LOST_DWELL = 5
 
 # Sim-to-real 损坏（BBox3DObservation）：观察 (x,y,z,distance,sx,sy,sz,u_ndc,v_ndc)，
 # 前 7 维米制标准差（深度/距离通道更大，模拟 RealSense 深度噪声），后 2 维为图像
@@ -91,8 +93,8 @@ FAILURE_WEIGHT = -20.0 / DT
 
 # --- 课程（curriculum）：随训练把重置难度从"近、正前方"线性扩展到完整范围 ---
 CURRICULUM_STEPS = 30000    # 在前 N 个训练步内线性退火到满难度（与 trainer.timesteps 同单位）
-YAW_HALF_START = 0.6        # 初始偏航半幅 [rad]（≈±34°，目标基本在正前方，易保持在视野内）
-D_MAX_START = 1.6           # 初始目标深度上限 [m]（初期更近，靠近路径短、丢失风险低）
+YAW_HALF_START = 0.4        # 初始偏航半幅 [rad]（≈±23°，目标更贴正前方，更易保持在窄 FOV 内）
+D_MAX_START = 1.0           # 初始目标深度上限 [m]（由 1.6 降低：靠近路径更短、丢失风险更低，先制造成功经验）
 
 
 ##
@@ -253,8 +255,10 @@ class EventsCfg:
             # 目标放置：在相机视锥内 3D 采样。d_range=相机前向深度（决定 bbox 大小），
             # u0/v0 在画面裕度内自由取（上下左右位置随机），z_floor 防止穿地。
             "d_range": (1.2, 4.0),
-            "margin_h": 0.8,
-            "margin_v": 0.7,
+            # 由 0.8/0.7 收紧到 0.55/0.45：目标初始更靠画面中心（远离 FOV 边缘），
+            # 起手就不在"快丢失"的边缘，给策略对正/靠近留出余量。
+            "margin_h": 0.55,
+            "margin_v": 0.45,
             "z_floor": 0.1,
         },
     )
