@@ -1,0 +1,13 @@
+{
+  "total_dim": 27,
+  "concatenate_terms": true,
+  "enable_corruption": true,
+  "terms": [
+    {"name": "joint_pos", "func": "joint_pos_rel", "asset": "robot[r_joint1..r_joint6]", "dim": 6, "noise": "Unoise(-0.01,0.01)"},
+    {"name": "joint_vel", "func": "joint_vel_rel", "asset": "robot[r_joint1..r_joint6]", "dim": 6, "noise": "Unoise(-0.01,0.01)"},
+    {"name": "gripper_pos", "func": "joint_pos", "asset": "robot[r_Joint_finger1,r_Joint_finger2]", "dim": 2, "noise": "none"},
+    {"name": "object_position", "func": "object_position_in_robot_root_frame", "dim": 3, "noise": "none"},
+    {"name": "ee_position", "func": "ee_position_in_robot_root_frame", "dim": 3, "noise": "none"},
+    {"name": "actions", "func": "last_action", "dim": 7, "noise": "none"}
+  ]
+}

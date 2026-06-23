@@ -6,9 +6,9 @@
 示例::
 
     OMNI_KIT_ACCEPT_EULA=YES /home/shihao/pistar/.venv/bin/python \
-        /home/shihao/isaac_rm/scripts/play.py \
-        --task Isaac-Chassis-Approach-Play-v0 --num_envs 16 \
-        --checkpoint /abs/path/to/best_agent.pt
+  /home/shihao/isaac_rm/scripts/play.py \
+  --task Isaac-RM-Push-Block-Play-v0 --num_envs 16 \
+  --checkpoint /home/shihao/isaac_rm/harbor/outputs/ppo_Isaac-RM-Push-Block-v0_20260618-075725/skrl/checkpoints/best_agent.pt
 """
 
 """首先启动 Isaac Sim 模拟器。"""
@@ -47,6 +47,21 @@ parser.add_argument("--real-time", action="store_true", default=False, help="Run
 
 AppLauncher.add_app_launcher_args(parser)
 args_cli, hydra_args = parser.parse_known_args()
+
+
+def _strip_algorithm_prefix(task_name: str) -> str:
+    """Accept Harbor trial names copied as task names, e.g. ppo_Isaac-Task-v0."""
+    for prefix in ("ppo_", "amp_", "ippo_", "mappo_", "sac_", "td3_"):
+        if task_name.lower().startswith(prefix):
+            return task_name[len(prefix) :]
+    return task_name
+
+
+canonical_task = _strip_algorithm_prefix(args_cli.task)
+if canonical_task != args_cli.task:
+    print(f"[INFO] Treating task '{args_cli.task}' as '{canonical_task}' (removed algorithm prefix).")
+    args_cli.task = canonical_task
+
 if args_cli.video:
     args_cli.enable_cameras = True
 

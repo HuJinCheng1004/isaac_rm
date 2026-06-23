@@ -28,3 +28,13 @@ logs/
 outputs/
 output/
 wandb/
+harbor/outputs/
+harbor/rl_experiments/
+setup_env_install.log
+setup_isaaclab_core.log
+smoke_test.log
+
+# === 旧训练日志（skrl 直接产物）===
+chassis_reach/
+rm_push_block/
+rm_lift_block/

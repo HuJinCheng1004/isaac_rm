@@ -1,0 +1,15 @@
+# harbor PPO (parallel) config for the chassis_nav local_implementation suite.
+#
+# NOTE: algorithm_source.kind == local_implementation. The actual PPO
+# hyperparameters live in the repo's own skrl agent cfg
+#   source/chassis_nav/chassis_nav/tasks/<task>/agents/skrl_ppo_cfg.yaml
+# which harbor/scripts/rl/skrl_local/train.py loads via the gym
+# `skrl_cfg_entry_point`. This file only carries the harbor-side run knobs
+# the train shim reads (num_envs / total_timesteps defaults). reward-tune /
+# rl-run pass `--config-name=ppo.parallel`; the shim maps total_timesteps ->
+# skrl trainer.timesteps = total_timesteps // num_envs.
+algorithm: ppo
+parallel: true
+num_envs: 4096
+total_timesteps: 10000000
+seed: 42

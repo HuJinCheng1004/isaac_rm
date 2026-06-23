@@ -1,0 +1,91 @@
+{
+  "schema_version": 1,
+  "task_id": "Isaac-RM-Push-Block-v0",
+  "algorithm": "ppo",
+  "wandb_project": "reward-tune-Isaac-RM-Push-Block-v0",
+  "mode": "local",
+  "success_threshold": 0.5,
+  "timesteps_per_iter": 20000000,
+  "seed": 42,
+  "started_at": "2026-06-18T05:01:40Z",
+  "current_iter": 4,
+  "best_iter": 3,
+  "best_total_reward": 85.94,
+  "best_success_rate": 0.507,
+  "consecutive_non_improving": 0,
+  "seeded_from_spec": false,
+  "library_refs": [
+    "/home/shihao/claude-harbor/experiences/task-library/manipulation/single-arm-manipulation/push-block-franka-IsaacLab.md",
+    "/home/shihao/claude-harbor/experiences/task-library/manipulation/single-arm-manipulation/reach-franka-IsaacLab.md"
+  ],
+  "iters": [
+    {
+      "iter": 0,
+      "ts": "2026-06-18T05:23:17Z",
+      "trial_dir": "harbor/outputs/ppo_Isaac-RM-Push-Block-v0_20260618-071012",
+      "success_rate": 0.0,
+      "total_return": 3.606,
+      "per_term": {
+        "reaching_block": 3.29,
+        "block_to_goal_tracking": 0.321,
+        "block_to_goal_tracking_fine_grained": 0.0,
+        "success": 0.0,
+        "action_rate": -0.0002,
+        "joint_vel": -0.0051
+      },
+      "verdict": "goal-frame geometry bug: goal computed in robot-root frame (z=-0.805) -> goal ~0.8m underground; success geometrically impossible. Reward ladder sound.",
+      "improved": true
+    },
+    {
+      "iter": 1,
+      "ts": "2026-06-18T05:37:08Z",
+      "trial_dir": "harbor/outputs/ppo_Isaac-RM-Push-Block-v0_20260618-072844",
+      "success_rate": 0.0981,
+      "total_return": 67.5,
+      "per_term": {
+        "reaching_block": 0.027,
+        "block_to_goal_tracking": 65.37,
+        "block_to_goal_tracking_fine_grained": 2.12,
+        "success": 0.0,
+        "action_rate": -0.0011,
+        "joint_vel": -0.0188
+      },
+      "verdict": "geometry fix worked: success 0->0.098. Bottleneck now fine positioning (block plateaus ~10cm from goal; gradient dead-band 5-15cm).",
+      "improved": true
+    },
+    {
+      "iter": 2,
+      "ts": "2026-06-18T05:48:37Z",
+      "trial_dir": "harbor/outputs/ppo_Isaac-RM-Push-Block-v0_20260618-074028",
+      "success_rate": 0.1002,
+      "total_return": 84.7,
+      "per_term": {
+        "reaching_block": 0.003,
+        "block_to_goal_tracking": 65.05,
+        "mid_band": 14.62,
+        "fine": 5.05,
+        "success": 0.0
+      },
+      "verdict": "success flat at 0.10. Reward-gradient shaping exhausted; bottleneck is open-loop swat (no sustained contact). Iter3: incentivize EE-block contact.",
+      "improved": true
+    },
+    {
+      "iter": 3,
+      "ts": "2026-06-18T06:07:00Z",
+      "trial_dir": "harbor/outputs/ppo_Isaac-RM-Push-Block-v0_20260618-075725",
+      "success_rate": 0.507,
+      "total_return": 85.94,
+      "per_term": {
+        "reaching_block": 0.631,
+        "block_to_goal_tracking": 85.3,
+        "mid_band": 0.014,
+        "fine": 0.006,
+        "success": 0.0
+      },
+      "verdict": "CONVERGED: success 0.507>=0.5. Contact-gating + reaching weight 1->4 broke the open-loop-swat plateau; genuine closed-loop pushing.",
+      "improved": true
+    }
+  ],
+  "status": "converged",
+  "finished_at": "2026-06-18T06:07:00Z"
+}

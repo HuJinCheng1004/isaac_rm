@@ -1,0 +1,49 @@
+{
+  "schema_version": 1,
+  "benchmark": {
+    "name": "chassis_nav",
+    "repo_path": "/home/shihao/isaac_rm",
+    "category": "rl"
+  },
+  "tasks": [
+    {
+      "id": "Isaac-RM-Push-Block-v0",
+      "make": "gymnasium.make",
+      "max_episode_steps": 200,
+      "success_metric": "success",
+      "reward_metric": "episode_return"
+    }
+  ],
+  "algorithm_source": {
+    "kind": "local_implementation",
+    "slug": "skrl_local",
+    "package": "/home/shihao/isaac_rm/source/chassis_nav",
+    "parallel": true
+  },
+  "scripts_dir": "harbor/scripts/rl/skrl_local",
+  "algorithms": {
+    "ppo": {"class": "PPO", "config": "harbor/configs/rl/ppo.parallel.yaml"}
+  },
+  "logging": {
+    "wandb": {
+      "enabled": false,
+      "project": "rm-push-block",
+      "entity": null,
+      "mode": "online"
+    },
+    "local_dir": "harbor/rl_experiments"
+  },
+  "selection_metric": {
+    "primary": "success_rate",
+    "secondary": "eval_return_mean",
+    "tertiary": "sample_efficiency",
+    "stability_weight": 0.05
+  },
+  "training_defaults": {
+    "timesteps_per_trial": 20000000,
+    "eval_episodes": 256,
+    "n_envs_cpu": 8,
+    "n_envs_gpu": 2048,
+    "seed": 42
+  }
+}

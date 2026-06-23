@@ -1,0 +1,17 @@
+{
+  "schema_version": 1,
+  "captured_at": "2026-06-16T13:05:55+00:00",
+  "benchmark_name": "chassis_nav",
+  "category": "rl",
+  "language": "pytorch",
+  "gpu_sim": true,
+  "tasks": [
+    {
+      "id": "Isaac-RM-Push-Block-v0",
+      "max_episode_steps": 200,
+      "success_metric": "success",
+      "reward_implemented": true,
+      "reward_metric": "episode_return"
+    }
+  ]
+}

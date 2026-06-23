@@ -1,0 +1,4 @@
+{
+  "task_id": "Isaac-RM-Push-Block-v0",
+  "description": "RM robot right arm (6-DOF, fixed chassis) pushes a DexCube block on a table to a commanded 2D goal position. Success when block-to-goal xy distance < 5 cm; horizon 200 steps."
+}

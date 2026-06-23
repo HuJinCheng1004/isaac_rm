@@ -1,0 +1,77 @@
+{
+  "schema_version": 1,
+  "task_id": "Isaac-RM-Lift-Block-v0",
+  "algorithm": "ppo",
+  "wandb_project": "reward-tune-Isaac-RM-Lift-Block-v0",
+  "mode": "local",
+  "success_threshold": 0.5,
+  "timesteps_per_iter": 20000000,
+  "seed": 42,
+  "started_at": "2026-06-22T00:00:00+00:00",
+  "current_iter": 5,
+  "best_iter": null,
+  "best_total_reward": null,
+  "best_success_rate": null,
+  "consecutive_non_improving": 0,
+  "library_refs": [
+    "/home/shihao/claude-harbor/experiences/task-library/manipulation/single-arm-manipulation/lift-cube-franka-IsaacLab.md",
+    "/home/shihao/claude-harbor/experiences/task-library/manipulation/single-arm-manipulation/push-block-isaac_rm.md"
+  ],
+  "iters": [
+    {
+      "iter": 1,
+      "status": "done",
+      "started_at": "2026-06-22T10:57:31Z",
+      "finished_at": "2026-06-22T13:13:00Z",
+      "success_rate": 0.0,
+      "total_return": 9.408,
+      "reward_changes": "Added joint_jerk (mean-abs, w=-5e-4) and table_avoidance (tanh body-z gate, w=-0.5); increased joint_vel from -1e-4 to -5e-4. Robot moved +0.2m X for chassis-table clearance.",
+      "diagnosis": "Policy exploited arm-body-push shortcut: lifting_object=6.625 but grasping=0.006. EE never approached cube (reaching_block=0.081). Fix: gate lifting_object and cube_height on EE proximity.",
+      "log": "harbor/create-task/isaac-rm-lift-block-v0/iter_001/train.log",
+      "metrics_path": "harbor/outputs/ppo_Isaac-RM-Lift-Block-v0_20260622-125729/metrics.jsonl"
+    },
+    {
+      "iter": 2,
+      "status": "done",
+      "started_at": "2026-06-22T13:40:55Z",
+      "finished_at": "2026-06-22T15:41:31Z",
+      "success_rate": 0.0,
+      "total_return": 32.73,
+      "reward_changes": "Gate lifting_object on EE proximity (new object_is_lifted_grasped, threshold=0.12m); gate cube_height on same proximity; increase reaching_block weight 1.0->2.0. Prevents arm-push shortcut.",
+      "diagnosis": "Policy approached cube (reaching=3.89) and lifted it (lifting=21.84) but never closed gripper (grasping=0.72 via proximity only, not actual closure). table_avoidance=-0.053 100x larger than iter_001. Fix: add explicit gripper closure reward, tighten proximity to 8cm, reduce table_avoidance weight.",
+      "log": "harbor/create-task/isaac-rm-lift-block-v0/iter_002/train.log",
+      "metrics_path": "harbor/outputs/ppo_Isaac-RM-Lift-Block-v0_20260622-154131/metrics.jsonl"
+    },
+    {
+      "iter": 3,
+      "status": "done",
+      "started_at": "2026-06-22T15:41:00Z",
+      "finished_at": "2026-06-22T15:55:38Z",
+      "success_rate": 0.0,
+      "total_return": 68.57,
+      "reward_changes": "Added pre_grasp_reward (near AND gripper_closed, w=10.0); tightened proximity 12cm->8cm across all terms; reduced table_avoidance weight -0.5->-0.2.",
+      "diagnosis": "Hover-with-closed-gripper shortcut: pre_grasp=62.46 (93% of total) by keeping gripper closed near cube ON TABLE. Policy never lifted (lifting=0.015). pre_grasp had no cube-lifted gate. Fix: add minimal_height=0.04 gate to pre_grasp.",
+      "log": "harbor/create-task/isaac-rm-lift-block-v0/iter_003/train.log",
+      "metrics_path": "harbor/outputs/ppo_Isaac-RM-Lift-Block-v0_20260622-155538/metrics.jsonl"
+    },
+    {
+      "iter": 4,
+      "status": "done",
+      "started_at": "2026-06-22T15:55:00Z",
+      "finished_at": "2026-06-22T16:05:53Z",
+      "success_rate": 0.0,
+      "total_return": 6.80,
+      "reward_changes": "Added minimal_height=0.04 gate to pre_grasp_reward, blocking hover shortcut.",
+      "diagnosis": "Policy completely abandoned gripper: pre_grasp=0.0, total reward collapsed to reaching_block=6.70 only. Root cause: BinaryJointPositionAction maps action<0->CLOSE, action>=0->OPEN. With PPO init near zero, gripper stays OPEN forever. Three-way conjunction (lifted AND near AND closed) never explored. Fix: swap open/close command expressions so action>=0->physically CLOSED (default rest state).",
+      "log": "harbor/create-task/isaac-rm-lift-block-v0/iter_004/train.log",
+      "metrics_path": "harbor/outputs/ppo_Isaac-RM-Lift-Block-v0_20260622-160553/metrics.jsonl"
+    },
+    {
+      "iter": 5,
+      "status": "running",
+      "started_at": "2026-06-22T16:10:00Z",
+      "reward_changes": "Swap gripper BinaryJointPositionActionCfg: open_command=GRIPPER_CLOSED(0.0), close_command=GRIPPER_OPEN(0.0325). Now action>=0 (PPO default near-zero) -> physically CLOSED. Policy defaults to closed gripper; must output negative to open for approach, then release to close for grasp. pre_grasp three-way conjunction effectively becomes two-way (lifted AND near).",
+      "log": "harbor/create-task/isaac-rm-lift-block-v0/iter_005/train.log"
+    }
+  ]
+}
